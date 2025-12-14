@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIWAAN - Présentation Projet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            padding: 60px 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide h1 {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .slide h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            border-left: 8px solid white;
+            padding-left: 30px;
+        }
+
+        .slide h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .slide p, .slide li {
+            font-size: 24px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .slide ul {
+            list-style: none;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .slide li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-box {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        th {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        td {
+            font-size: 20px;
+        }
+
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.05);
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 18px;
+            color: white;
+            opacity: 0.7;
+        }
+
+        /* Différents backgrounds pour variété */
+        .slide:nth-child(2n) {
+            background: linear-gradient(135deg, #006AFF 0%, #0052CC 100%);
+        }
+
+        .slide:nth-child(3n) {
+            background: linear-gradient(135deg, #05CD99 0%, #00A67E 100%);
+        }
+
+        .slide:nth-child(4n) {
+            background: linear-gradient(135deg, #FFB547 0%, #FF8A00 100%);
+        }
+
+        .slide:nth-child(5n) {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+        }
+
+        .logo {
+            font-size: 96px;
+            margin-bottom: 40px;
+        }
+
+        .tagline {
+            font-size: 32px;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .cta-box {
+            background: rgba(255,255,255,0.2);
+            padding: 50px;
+            border-radius: 20px;
+            margin-top: 50px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Titre -->
+        <div class="slide active">
+            <div class="logo">🏠</div>
+            <h1>DIWAAN</h1>
+            <p class="tagline">"L'Immobilier Intelligent du Sénégal"</p>
+            <div style="margin-top: 80px;">
+                <p style="font-size: 28px; opacity: 0.8;">De la recherche à la signature, en  toute simplicité</p>
+            </div>
+            <div style="position: absolute; bottom: 60px; left: 80px;">
+                <p style="font-size: 20px; opacity: 0.7;">Présentation Projet • Décembre 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Le Problème -->
+        <div class="slide">
+            <h2>🔴 Le Problème</h2>
+            <h3>L'Immobilier Sénégalais est Bloqué</h3>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h3>Pour les Acheteurs</h3>
+                    <ul>
+                        <li>Opacité des prix</li>
+                        <li>Procédures incompréhensibles</li>
+                        <li>30% renoncent par méfiance</li>
+                        <li>Aucune formation accessible</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>Pour les Professionnels</h3>
+                    <ul>
+                        <li>Outils archaïques</li>
+                        <li>10h/semaine perdues en admin</li>
+                        <li>Risques juridiques</li>
+                        <li>Pas de visibilité</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cta-box" style="margin-top: 60px;">
+                <h3>Impact: 600 milliards FCFA/an désorganisés</h3>
+            </div>
+        </div>
+
+        <!-- Slide 3: La Solution -->
+        <div class="slide">
+            <h2>✅ Notre Solution</h2>
+            <h3>DIWAAN : Plateforme 3-en-1</h3>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="emoji">🏘️</div>
+                    <h3>1. Marketplace</h3>
+                    <p>Recherche intelligente, carte interactive, calculateurs</p>
+                </div>
+                <div class="feature-box">
+                    <div class="emoji">💼</div>
+                    <h3>2. Outils Pro</h3>
+                    <p>Facturation, Contrats IA, Comptabilité OHADA</p>
+                </div>
+                <div class="feature-box">
+                    <div class="emoji">📚</div>
+                    <h3>3. Académie</h3>
+                    <p>6 guides complets (720+ lignes de contenu)</p>
+                </div>
+                <div class="feature-box">
+                    <div class="emoji">🤖</div>
+                    <h3>4. Assistant IA</h3>
+                    <p>Juridique spécialisé droit sénégalais</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: En Chiffres -->
+        <div class="slide">
+            <h2>📊 En Chiffres</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">45+</div>
+                    <div class="stat-label">Pages Fonctionnelles</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Composants</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15K+</div>
+                    <div class="stat-label">Lignes de Code</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">92/100</div>
+                    <div class="stat-label">Score Global</div>
+                </div>
+            </div>
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="stat-box">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Guides Complets</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Contrats Juridiques</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">Développement</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Conforme OHADA</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Avantages Compétitifs -->
+        <div class="slide">
+            <h2>🏆 Avantage Compétitif</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fonctionnalité</th>
+                        <th>DIWAAN</th>
+                        <th>Concurrence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Annonces</td>
+                        <td>✅ Avancé</td>
+                        <td>✅ Standard</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Guides éducatifs</strong></td>
+                        <td><strong>✅ 6 complets</strong></td>
+                        <td>❌ Aucun</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Facturation pro</strong></td>
+                        <td><strong>✅ + PDF</strong></td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contrats IA</strong></td>
+                        <td><strong>✅ 8 modèles</strong></td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comptabilité OHADA</strong></td>
+                        <td><strong>✅ Complète</strong></td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td>Design</td>
+                        <td>✅ Moderne 2025</td>
+                        <td>⚠️ Basique</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 6: Marché -->
+        <div class="slide">
+            <h2>🌍 Marché & Opportunité</h2>
+            <div class="feature-grid">
+                <div class="feature-box" style="grid-column: span 2;">
+                    <h3>TAM - Total Addressable Market</h3>
+                    <div class="stat-number" style="color: #FFD700;">600 mds FCFA/an</div>
+                    <p>15.000 transactions × 40M FCFA moyen (Sénégal)</p>
+                </div>
+                <div class="feature-box">
+                    <h3>SAM (3 ans)</h3>
+                    <div class="stat-number" style="font-size: 48px;">60 mds</div>
+                    <p>10% parts de marché</p>
+                </div>
+                <div class="feature-box">
+                    <h3>SOM (An 1)</h3>
+                    <div class="stat-number" style="font-size: 48px;">24 mds</div>
+                    <p>600 transactions</p>
+                </div>
+            </div>
+            <div style="margin-top: 50px; text-align: center;">
+                <p style="font-size: 32px;"><strong>Croissance marché : +8%/an</strong></p>
+                <p style="font-size: 24px; margin-top: 20px;">Pénétration digitale : 5% (énorme potentiel !)</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Modèle Économique -->
+        <div class="slide">
+            <h2>💰 Modèle Économique</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h3>Commissions (70%)</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Vente: 3-5% → 200K/transaction</li>
+                        <li>Location: 1 mois loyer</li>
+                    </ul>
+                    <div class="highlight" style="margin-top: 20px;">120M FCFA/an</div>
+                </div>
+                <div class="feature-box">
+                    <h3>Abonnements (20%)</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Pro: 25K/mois</li>
+                        <li>Agence: 75K/mois</li>
+                    </ul>
+                    <div class="highlight" style="margin-top: 20px;">24M FCFA/an</div>
+                </div>
+            </div>
+            <div class="cta-box">
+                <h3>Total Revenus An 1</h3>
+                <div class="stat-number" style="color: #FFD700;">147M FCFA</div>
+                <p style="font-size: 28px; margin-top: 20px;">Bénéfice: 116M • Marge: 79% • ROI: 3.800%</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Projections -->
+        <div class="slide">
+            <h2>📈 Projections An 1</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trimestre</th>
+                        <th>Revenus</th>
+                        <th>Coûts</th>
+                        <th>Bénéfice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Q1</td>
+                        <td>2M FCFA</td>
+                        <td>3M FCFA</td>
+                        <td style="color: #ff6b6b;">-1M FCFA</td>
+                    </tr>
+                    <tr>
+                        <td>Q2</td>
+                        <td>15M FCFA</td>
+                        <td>8M FCFA</td>
+                        <td style="color: #51cf66;">+7M FCFA</td>
+                    </tr>
+                    <tr>
+                        <td>Q3</td>
+                        <td>45M FCFA</td>
+                        <td>10M FCFA</td>
+                        <td style="color: #51cf66;">+35M FCFA</td>
+                    </tr>
+                    <tr>
+                        <td>Q4</td>
+                        <td>85M FCFA</td>
+                        <td>10M FCFA</td>
+                        <td style="color: #51cf66;">+75M FCFA</td>
+                    </tr>
+                    <tr style="background: rgba(255,255,255,0.2); font-weight: bold;">
+                        <td>TOTAL</td>
+                        <td>147M FCFA</td>
+                        <td>31M FCFA</td>
+                        <td style="color: #FFD700;">+116M FCFA</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 40px; text-align: center;">
+                <p style="font-size: 36px;"><strong>Breakeven: Mois 6</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Roadmap -->
+        <div class="slide">
+            <h2>🗺️ Roadmap 12 Mois</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h3>Q1 • MVP ✅</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Développement 90%</li>
+                        <li>6 guides complets</li>
+                        <li>Outils professionnels</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>Q2 • Launch ⏳</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Backend API</li>
+                        <li>Beta 50 users</li>
+                        <li>Public launch</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>Q3 • Growth 🎯</h3>
+                    <ul style="margin-left: 0;">
+                        <li>1.000 utilisateurs</li>
+                        <li>Marketing scaling</li>
+                        <li>Partenariats banques</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>Q4 • Scale 🚀</h3>
+                    <ul style="margin-left: 0;">
+                        <li>10.000 users</li>
+                        <li>Rentabilité</li>
+                        <li>Top 3 Sénégal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Investissement -->
+        <div class="slide">
+            <h2>💎 L'Investissement</h2>
+            <div class="cta-box">
+                <h3>Montant Recherché</h3>
+                <div class="stat-number" style="color: #FFD700;">3M FCFA</div>
+                <p style="font-size: 28px; margin-top: 20px;">pour 15% equity</p>
+            </div>
+            <div class="feature-grid" style="margin-top: 50px;">
+                <div class="feature-box">
+                    <h3>40% Développement</h3>
+                    <p>Backend API, sécurité, tests</p>
+                    <div class="highlight">1.2M FCFA</div>
+                </div>
+                <div class="feature-box">
+                    <h3>50% Marketing</h3>
+                    <p>Campagnes, événement, influenceurs</p>
+                    <div class="highlight">1.5M FCFA</div>
+                </div>
+            </div>
+            <div style="margin-top: 50px; text-align: center;">
+                <p style="font-size: 28px;">Valorisation post-money: <strong>20M FCFA</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Équipe -->
+        <div class="slide">
+            <h2>👥 Équipe</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h3>🎯 CEO - Fondateur</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Vision & Stratégie</li>
+                        <li>Partenariats</li>
+                        <li>Levée de fonds</li>
+                        <li>10+ ans expérience</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>💻 CTO - À recruter</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Développement tech</li>
+                        <li>Architecture scalable</li>
+                        <li>Expert Next.js</li>
+                        <li>Budget: 600K/mois</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>📱 CMO - À recruter</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Acquisition clients</li>
+                        <li>Brand & Communication</li>
+                        <li>Data-driven marketing</li>
+                        <li>Budget: 500K/mois</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3>🎓 Advisory Board</h3>
+                    <ul style="margin-left: 0;">
+                        <li>Expert immobilier</li>
+                        <li>Avocat/Notaire</li>
+                        <li>Expert-comptable</li>
+                        <li>Equity-based</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Pourquoi Maintenant -->
+        <div class="slide">
+            <h2>⏰ Pourquoi MAINTENANT ?</h2>
+            <div class="feature-box" style="padding: 50px; margin-bottom: 30px;">
+                <h3 style="font-size: 48px; margin-bottom: 40px;">Timing Parfait !</h3>
+                <ul style="font-size: 28px; margin-left: 0;">
+                    <li>Digitalisation post-COVID accélérée</li>
+                    <li>Adoption mobile 70% au Sénégal</li>
+                    <li>Fintech en explosion (Wave, Orange Money)</li>
+                    <li>Pas de concurrent sérieux avec nos fonctionnalités</li>
+                    <li>Produit 90% prêt → Launch en 2 mois</li>
+                    <li>Gouvernement pro-digital & startups</li>
+                </ul>
+            </div>
+            <div class="cta-box">
+                <h3 style="font-size: 36px;">C'est LE moment d'investir dans l'immobilier sénégalais !</h3>
+            </div>
+        </div>
+
+        <!-- Slide 13: Vision -->
+        <div class="slide">
+            <h2>🚀 Vision 5 Ans</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">2025</div>
+                    <div class="stat-label">Leader Sénégal</div>
+                    <p style="font-size: 18px; margin-top: 15px;">50K users • #1 plateforme</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2026</div>
+                    <div class="stat-label">Expansion UEMOA</div>
+                    <p style="font-size: 18px; margin-top: 15px;">200K users • 5 pays</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2027</div>
+                    <div class="stat-label">PropTech Leader</div>
+                    <p style="font-size: 18px; margin-top: 15px;">500K users • Afrique Ouest</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2028+</div>
+                    <div class="stat-label">Pan-Africain</div>
+                    <p style="font-size: 18px; margin-top: 15px;">2M users • Exit/IPO</p>
+                </div>
+            </div>
+            <div class="cta-box" style="margin-top: 60px;">
+                <h3 style="font-size: 42px;">Ambition: Leader PropTech Afrique de l'Ouest</h3>
+            </div>
+        </div>
+
+        <!-- Slide 14: Call to Action -->
+        <div class="slide">
+            <h2>🎯 Rejoignez l'Aventure !</h2>
+            <div class="feature-box" style="padding: 60px; text-align: center;">
+                <h3 style="font-size: 54px; margin-bottom: 50px;">5 Raisons d'Investir</h3>
+                <ul style="font-size: 32px; text-align: left; margin-left: 80px; line-height: 2.5;">
+                    <li>Produit exceptionnel (90% prêt, fonctionnalités uniques)</li>
+                    <li>Marché énorme (600 mds, 95% non-digital)</li>
+                    <li>ROI exceptionnel (3.800% An 1, breakeven M6)</li>
+                    <li>Équipe solide & expérimentée</li>
+                    <li>Impact social massif (transparence, éducation, emplois)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Contact -->
+        <div class="slide">
+            <h1 style="font-size: 96px; text-align: center;">Merci ! 🙏</h1>
+            <div class="cta-box" style="margin-top: 80px;">
+                <h3 style="font-size: 42px; margin-bottom: 40px;">Restons en Contact</h3>
+                <p style="font-size: 32px; line-height: 2;">
+                    📧 contact@diwaan.sn<br>
+                    📱 +221 77 XXX XX XX<br>
+                    🌐 www.diwaan.sn<br>
+                    📍 Dakar, Sénégal
+                </p>
+            </div>
+            <div style="margin-top: 80px; text-align: center;">
+                <p style="font-size: 36px; font-weight: 600;">
+                    Investissons ensemble dans l'avenir de l'immobilier sénégalais ! 🚀🇸🇳
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">
+        <span id="current">1</span> / <span id="total">15</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" onclick="previousSlide()">◀ Précédent</button>
+        <button class="nav-button" onclick="nextSlide()">Suivant ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Navigation clavier
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Impression: Afficher toutes les slides
+        window.addEventListener('beforeprint', function() {
+            slides.forEach(slide => slide.style.display = 'flex');
+        });
+
+        window.addEventListener('afterprint', function() {
+            slides.forEach((slide, index) => {
+                slide.style.display = index === currentSlide ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

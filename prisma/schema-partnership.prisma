@@ -1,0 +1,598 @@
+// Extension du schéma Prisma pour le système de partenariat
+// À ajouter à la fin de prisma/schema.prisma
+
+// ========================================
+// SYSTÈME DE PARTENARIAT PROMOTEUR-AGENCE
+// ========================================
+
+// Promoteur Immobilier (ex: GREEN SYSTEM)
+model Developer {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Informations légales
+  legalName            String   // "GREEN SYSTEM SA"
+  tradeName            String?  // Nom commercial
+  rccm                 String   @unique // "SN DKR 2010 B10309"
+  ninea                String   @unique // "00424505"
+  
+  // Coordonnées
+  address              String
+  city                 String
+  phone                String
+  email                String   @unique
+  website              String?
+  
+  // Représentant légal
+  representativeName   String   // "Mr Abdoul Aziz Sylla"
+  representativeTitle  String   // "Gérant"
+  representativePhone  String?
+  representativeEmail  String?
+  
+  // Informations bancaires
+  bankName             String?
+  iban                 String?
+  accountNumber        String?
+  
+  // Statut
+  status               DeveloperStatus @default(ACTIVE)
+  verifiedAt           DateTime?
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  partnerships         Partnership[]
+  projects             Project[]
+  plots                Plot[]
+  sales                Sale[]
+  
+  @@map("developers")
+}
+
+enum DeveloperStatus {
+  ACTIVE
+  SUSPENDED
+  INACTIVE
+}
+
+// Agence Immobilière (ex: MMOK GROUP)
+model Agency {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Informations légales
+  legalName            String   // "MMOK GROUP"
+  tradeName            String?
+  rccm                 String   @unique // "SN DKR 2022 A 25935"
+  ninea                String   @unique // "009587546 1Y1"
+  
+  // Coordonnées
+  address              String   // "Ouest Foire Lot N°28"
+  city                 String
+  floor                String?  // "6ème Etage"
+  phone                String
+  email                String   @unique
+  website              String?
+  
+  // Direction
+  directorName         String   // "Madame Ghislaine D Nicole SAMB"
+  directorTitle        String   // "Directrice Générale"
+  directorPhone        String?
+  directorEmail        String?
+  
+  // Informations bancaires
+  bankName             String?
+  iban                 String?
+  accountNumber        String?
+  
+  // Performance commerciale
+  totalSales           Int      @default(0)
+  totalRevenue         Float    @default(0)
+  averageMargin        Float?
+  conversionRate       Float?
+  
+  // Statut
+  status               AgencyStatus @default(ACTIVE)
+  verifiedAt           DateTime?
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  partnerships         Partnership[]
+  plots                Plot[]
+  reservations         Reservation[]
+  sales                Sale[]
+  agents               AgencyAgent[]
+  
+  @@map("agencies")
+}
+
+enum AgencyStatus {
+  ACTIVE
+  SUSPENDED
+  INACTIVE
+}
+
+// Agent Commercial (membre d'une agence)
+model AgencyAgent {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  agencyId             String   @db.ObjectId
+  
+  // Informations personnelles
+  firstName            String
+  lastName             String
+  email                String   @unique
+  phone                String
+  avatar               String?
+  
+  // Performance
+  totalSales           Int      @default(0)
+  totalRevenue         Float    @default(0)
+  
+  // Statut
+  status               AgentStatus @default(ACTIVE)
+  
+  // Dates
+  hiredAt              DateTime @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  agency               Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  reservations         Reservation[]
+  
+  @@map("agency_agents")
+}
+
+enum AgentStatus {
+  ACTIVE
+  ON_LEAVE
+  SUSPENDED
+  TERMINATED
+}
+
+// Contrat de Partenariat
+model Partnership {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  developerId          String   @db.ObjectId
+  agencyId             String   @db.ObjectId
+  
+  // Référence
+  contractNumber       String   @unique
+  
+  // Durée du contrat
+  startDate            DateTime
+  endDate              DateTime
+  initialDuration      Int      // Mois (30 par défaut)
+  autoRenewal          Boolean  @default(true) // Tacite reconduction
+  renewalPeriod        Int      @default(12) // Mois
+  
+  // Type de mandat
+  exclusive            Boolean  @default(false) // Non exclusif par défaut
+  
+  // Conditions financières
+  commissionRate       Float?   // % si commission fixe
+  cashDiscountRate     Float    @default(5) // 5% vente comptant
+  priceRevisionPeriod  Int      @default(3) // Révision tous les 3 mois
+  
+  // Obligations
+  minDownPaymentRate   Float    @default(50) // 50% minimum
+  notificationDelay    Int      @default(24) // 24 heures
+  documentDelay        Int      @default(72) // 72 heures
+  refundDelay          Int      @default(90) // 3 mois pour remboursement
+  
+  // Conditions d'annulation
+  defaultPaymentThreshold Int   @default(3) // 3 échéances
+  cancellationNoticePeriod Int  @default(60) // 2 mois préavis
+  
+  // Statut
+  status               PartnershipStatus @default(DRAFT)
+  signedAt             DateTime?
+  terminatedAt         DateTime?
+  terminationReason    String?
+  
+  // Signatures
+  developerSignature   String?  // URL signature électronique
+  agencySignature      String?
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  developer            Developer @relation(fields: [developerId], references: [id])
+  agency               Agency    @relation(fields: [agencyId], references: [id])
+  clauses              Clause[]
+  plots                Plot[]
+  priceRevisions       PriceRevision[]
+  
+  @@map("partnerships")
+}
+
+enum PartnershipStatus {
+  DRAFT
+  ACTIVE
+  SUSPENDED
+  TERMINATED
+  EXPIRED
+}
+
+// Clause contractuelle
+model Clause {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  partnershipId        String   @db.ObjectId
+  
+  // Contenu
+  articleNumber        String   // "Article 3"
+  title                String   // "Mandat et Exclusivité"
+  content              String   @db.String // Texte complet
+  
+  // Organisation
+  order                Int
+  category             ClauseCategory
+  mandatory            Boolean  @default(true)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  partnership          Partnership @relation(fields: [partnershipId], references: [id], onDelete: Cascade)
+  
+  @@map("clauses")
+}
+
+enum ClauseCategory {
+  GENERAL
+  FINANCIAL
+  OBLIGATIONS
+  RESPONSIBILITIES
+  TERMINATION
+  CONFIDENTIALITY
+  DISPUTE
+  MISCELLANEOUS
+}
+
+// Projet/Lotissement (ex: Sebi Renaissance)
+model Project {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  developerId          String   @db.ObjectId
+  
+  // Informations
+  name                 String   // "Sebi Renaissance"
+  description          String   @db.String
+  
+  // Localisation
+  location             String
+  commune              String   // "Diamniadio"
+  city                 String
+  region               String
+  coordinates          Json?    // {lat, lng}
+  
+  // Statistiques
+  totalPlots           Int
+  availablePlots       Int
+  reservedPlots        Int      @default(0)
+  soldPlots            Int      @default(0)
+  
+  // Documents
+  masterPlan           String?  // URL plan masse
+  technicalFile        String?
+  administrativeDocs   String[] // URLs actes administratifs
+  
+  // Statut
+  status               ProjectStatus @default(PLANNING)
+  
+  // Dates
+  plannedStartDate     DateTime?
+  actualStartDate      DateTime?
+  completionDate       DateTime?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  developer            Developer @relation(fields: [developerId], references: [id])
+  plots                Plot[]
+  
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  PLANNING
+  APPROVED
+  ACTIVE
+  SUSPENDED
+  COMPLETED
+  CANCELLED
+}
+
+// Parcelle/Lot
+model Plot {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  projectId            String   @db.ObjectId
+  developerId          String   @db.ObjectId
+  partnershipId        String?  @db.ObjectId
+  agencyId             String?  @db.ObjectId
+  
+  // Identification
+  plotNumber           String   // Numéro unique
+  block                String?  // Îlot
+  lotNumber            String?  // Numéro dans l'îlot
+  
+  // Caractéristiques
+  type                 PlotType
+  surfaceArea          Float    // m²
+  
+  // Prix actuel (prix de cession au m²)
+  currentPricePerSqm   Float
+  
+  // Informations techniques
+  coordinates          Json?    // {lat, lng}
+  boundaries           Json?    // Coordonnées limites
+  orientation          String?
+  
+  // Documents
+  technicalSheet       String?  // URL fiche technique
+  cadastralPlan        String?
+  
+  // Statut
+  status               PlotStatus @default(AVAILABLE)
+  
+  // Dates importantes
+  availableFrom        DateTime @default(now())
+  reservedAt           DateTime?
+  soldAt               DateTime?
+  withdrawnAt          DateTime?
+  withdrawalReason     String?
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  project              Project   @relation(fields: [projectId], references: [id])
+  developer            Developer @relation(fields: [developerId], references: [id])
+  partnership          Partnership? @relation(fields: [partnershipId], references: [id])
+  agency               Agency?   @relation(fields: [agencyId], references: [id])
+  priceHistory         PriceRevision[]
+  reservation          Reservation?
+  sale                 Sale?
+  
+  @@unique([projectId, plotNumber])
+  @@map("plots")
+}
+
+enum PlotType {
+  TYPE_A  // Terrain simple
+  TYPE_B  // Terrain avec voirie pavée
+  CUSTOM  // Type personnalisé
+}
+
+enum PlotStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+  WITHDRAWN
+  CANCELLED
+}
+
+// Révision de Prix
+model PriceRevision {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  plotId               String?  @db.ObjectId
+  partnershipId        String?  @db.ObjectId
+  
+  // Prix
+  oldPricePerSqm       Float
+  newPricePerSqm       Float
+  changePercentage     Float
+  
+  // Détails
+  effectiveDate        DateTime
+  reason               String
+  notes                String?
+  
+  // Créateur
+  createdBy            String   // ID utilisateur
+  createdByRole        String   // Role
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  
+  // Relations
+  plot                 Plot?     @relation(fields: [plotId], references: [id])
+  partnership          Partnership? @relation(fields: [partnershipId], references: [id])
+  
+  @@map("price_revisions")
+}
+
+// Réservation
+model Reservation {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  plotId               String   @unique @db.ObjectId
+  agencyId             String   @db.ObjectId
+  agentId              String?  @db.ObjectId
+  
+  // Numéro unique
+  reservationNumber    String   @unique
+  
+  // Client
+  clientFirstName      String
+  clientLastName       String
+  clientEmail          String
+  clientPhone          String
+  clientAddress        String?
+  clientCIN            String?  // Après solde uniquement
+  clientCINUrl         String?  // URL scan CIN
+  
+  // Prix (en FCFA)
+  cessionPricePerSqm   Float    // Prix cession promoteur
+  agencyMarginPerSqm   Float    // Marge agence (libre)
+  surfaceArea          Float    // m²
+  
+  cessionPrice         Float    // Prix total cession
+  agencyMargin         Float    // Marge totale agence
+  finalPrice           Float    // Prix final client
+  
+  // Rabais
+  cashDiscount         Float    @default(0)
+  cashDiscountRate     Float    @default(0)
+  
+  // Paiement
+  paymentType          PaymentType
+  downPayment          Float    // Acompte versé
+  downPaymentDate      DateTime?
+  balance              Float    // Solde restant
+  totalPaid            Float    @default(0)
+  
+  // Statut
+  status               ReservationStatus @default(PENDING)
+  validatedAt          DateTime?
+  completedAt          DateTime?
+  cancelledAt          DateTime?
+  cancellationReason   String?
+  cancellationType     CancellationType?
+  
+  // Documents
+  contractModelUrl     String?  // Modèle contrat agence
+  proofOfPayments      String[] // URLs bordereaux
+  signedContractUrl    String?
+  
+  // Notifications
+  notifiedToDeveloper  Boolean  @default(false)
+  notifiedAt           DateTime?
+  addedToJournal       Boolean  @default(false)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  plot                 Plot      @relation(fields: [plotId], references: [id])
+  agency               Agency    @relation(fields: [agencyId], references: [id])
+  agent                AgencyAgent? @relation(fields: [agentId], references: [id])
+  payments             Payment[]
+  sale                 Sale?
+  
+  @@map("reservations")
+}
+
+enum PaymentType {
+  CASH         // Paiement comptant
+  INSTALLMENT  // Paiement échelonné
+}
+
+enum ReservationStatus {
+  PENDING      // En attente validation (acompte < 50%)
+  VALIDATED    // Validée (acompte ≥ 50%)
+  COMPLETED    // Finalisée (solde payé)
+  CANCELLED    // Annulée
+}
+
+enum CancellationType {
+  CLIENT_WITHDRAWAL    // Désistement client
+  DEFAULT_PAYMENT      // Défaut de paiement (3 échéances)
+  DEVELOPER_FAULT      // Faute du promoteur
+  MUTUAL_AGREEMENT     // Accord mutuel
+}
+
+// Paiement
+model Payment {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  reservationId        String   @db.ObjectId
+  
+  // Montant
+  amount               Float
+  paymentDate          DateTime @default(now())
+  dueDate              DateTime?
+  
+  // Méthode
+  method               PaymentMethod
+  reference            String?  // Référence transaction
+  proofUrl             String?  // Bordereau de versement
+  
+  // Statut
+  status               PaymentStatus @default(COMPLETED)
+  lateDays             Int?
+  
+  // Notes
+  notes                String?
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  reservation          Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  
+  @@map("payments")
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHECK
+  MOBILE_MONEY
+  CREDIT_CARD
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  LATE
+  CANCELLED
+  REFUNDED
+}
+
+// Vente Finalisée
+model Sale {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  reservationId        String   @unique @db.ObjectId
+  plotId               String   @unique @db.ObjectId
+  agencyId             String   @db.ObjectId
+  developerId          String   @db.ObjectId
+  
+  // Numéro unique
+  saleNumber           String   @unique
+  
+  // Montants finaux
+  totalPaid            Float
+  cessionAmount        Float    // Part promoteur
+  agencyAmount         Float    // Part agence
+  
+  // Client
+  clientName           String
+  clientCINUrl         String
+  
+  // Documents
+  signedContractUrl    String?
+  mutationDocuments    String[] // URLs actes de mutation
+  
+  // Dates
+  saleDate             DateTime @default(now())
+  mutationDate         DateTime?
+  
+  // Statut
+  status               SaleStatus @default(COMPLETED)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  reservation          Reservation @relation(fields: [reservationId], references: [id])
+  plot                 Plot        @relation(fields: [plotId], references: [id])
+  agency               Agency      @relation(fields: [agencyId], references: [id])
+  developer            Developer   @relation(fields: [developerId], references: [id])
+  
+  @@map("sales")
+}
+
+enum SaleStatus {
+  COMPLETED
+  PENDING_MUTATION
+  MUTATED
+  CANCELLED
+}

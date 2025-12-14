@@ -1,0 +1,396 @@
+// SCHÉMA PRISMA AMÉLIORÉ - Système Flexible
+// Version avec paramétrage complet des types, prix et marges
+
+// ========================================
+// CONFIGURATION DES TYPES DE PARCELLES
+// ========================================
+
+// Type de parcelle personnalisé par projet
+model PlotTypeConfig {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  projectId            String   @db.ObjectId
+  
+  // Identification
+  code                 String   // "TYPE_A", "TYPE_B", "VILLA", "DUPLEX", etc.
+  name                 String   // "Terrain Simple", "Terrain Viabilisé Premium"
+  description          String?  @db.String
+  
+  // Caractéristiques par défaut
+  defaultSurfaceMin    Float?   // Surface minimale
+  defaultSurfaceMax    Float?   // Surface maximale
+  
+  // Visuels
+  icon                 String?  // URL icône
+  color                String?  // Code couleur pour l'UI
+  
+  // Équipements/Caractéristiques
+  features             String[] // ["Voirie pavée", "Éclairage public", "Eau", "Électricité"]
+  
+  // Prix de référence (peut être surchargé par partenariat)
+  basePrice            Float?   // Prix de base par m²
+  
+  // Statut
+  active               Boolean  @default(true)
+  
+  // Ordre d'affichage
+  displayOrder         Int      @default(0)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  project              Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  plots                Plot[]
+  pricingRules         PricingRule[]
+  
+  @@unique([projectId, code])
+  @@map("plot_type_configs")
+}
+
+// ========================================
+// RÈGLES DE PRIX PERSONNALISÉES
+// ========================================
+
+// Prix de cession spécifiques par agence/partenariat
+model PricingRule {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Scope de la règle
+  partnershipId        String?  @db.ObjectId  // Si spécifique à un partenariat
+  agencyId             String?  @db.ObjectId  // Si spécifique à une agence
+  projectId            String?  @db.ObjectId  // Si spécifique à un projet
+  plotTypeConfigId     String?  @db.ObjectId  // Si spécifique à un type
+  
+  // Nom de la règle
+  name                 String
+  description          String?
+  
+  // Prix de cession
+  cessionPricePerSqm   Float
+  
+  // Conditions d'application
+  minSurface           Float?   // Appliqué si surface >= X
+  maxSurface           Float?   // Appliqué si surface <= X
+  
+  // Rabais/Majorations
+  cashDiscountRate     Float?   // % rabais paiement comptant
+  volumeDiscountRate   Float?   // % rabais si > X parcelles
+  volumeThreshold      Int?     // Nombre de parcelles pour volume discount
+  
+  // Période de validité
+  validFrom            DateTime
+  validUntil           DateTime?
+  
+  // Priorité (règle avec priorité la plus haute appliquée)
+  priority             Int      @default(0)
+  
+  // Statut
+  active               Boolean  @default(true)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  partnership          Partnership? @relation(fields: [partnershipId], references: [id])
+  agency               Agency?      @relation(fields: [agencyId], references: [id])
+  project              Project?     @relation(fields: [projectId], references: [id])
+  plotTypeConfig       PlotTypeConfig? @relation(fields: [plotTypeConfigId], references: [id])
+  
+  @@map("pricing_rules")
+}
+
+// ========================================
+// CONFIGURATION DES MARGES
+// ========================================
+
+// Configuration marge par agent ou agence
+model MarginConfig {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Scope
+  agencyId             String?  @db.ObjectId
+  agentId              String?  @db.ObjectId
+  
+  // Type de terrain (optionnel)
+  plotTypeConfigId     String?  @db.ObjectId
+  
+  // Nom de la configuration
+  name                 String
+  description          String?
+  
+  // Type de marge
+  marginType           MarginType
+  
+  // Valeur de la marge
+  marginValue          Float    // % ou montant fixe selon marginType
+  marginPerSqm         Float?   // Marge au m² (alternative)
+  
+  // Conditions
+  minSurface           Float?
+  maxSurface           Float?
+  minPrice             Float?
+  maxPrice             Float?
+  
+  // Paliers de marge selon surface
+  tieredMargin         Json?    // [{min: 0, max: 200, margin: 8000}, {min: 200, max: 500, margin: 10000}]
+  
+  // Bonifications
+  performanceBonus     Float?   // Bonus si > X ventes/mois
+  performanceThreshold Int?     // Nombre de ventes pour bonus
+  
+  // Période de validité
+  validFrom            DateTime
+  validUntil           DateTime?
+  
+  // Statut
+  active               Boolean  @default(true)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  agency               Agency?          @relation(fields: [agencyId], references: [id])
+  agent                AgencyAgent?     @relation(fields: [agentId], references: [id])
+  plotTypeConfig       PlotTypeConfig?  @relation(fields: [plotTypeConfigId], references: [id])
+  
+  @@map("margin_configs")
+}
+
+enum MarginType {
+  PERCENTAGE     // % du prix de cession
+  FIXED_AMOUNT   // Montant fixe
+  PER_SQM        // Par m²
+  TIERED         // Paliers selon critères
+}
+
+// ========================================
+// STRUCTURE DE COMMISSION
+// ========================================
+
+// Commission pour les agents
+model CommissionStructure {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Scope
+  agencyId             String   @db.ObjectId
+  agentId              String?  @db.ObjectId  // Si spécifique à un agent
+  
+  // Nom
+  name                 String
+  description          String?
+  
+  // Type de commission
+  commissionType       CommissionType
+  
+  // Base de calcul
+  baseCalculation      CommissionBase
+  
+  // Taux/Montant
+  rate                 Float?   // % si PERCENTAGE
+  fixedAmount          Float?   // Montant fixe
+  amountPerSqm         Float?   // Par m²
+  
+  // Paliers de commission
+  tiers                Json?    // [{min: 0, max: 10M, rate: 2%}, {min: 10M, rate: 3%}]
+  
+  // Conditions
+  minSaleAmount        Float?
+  requiresValidation   Boolean  @default(false)
+  
+  // Période
+  validFrom            DateTime
+  validUntil           DateTime?
+  
+  // Statut
+  active               Boolean  @default(true)
+  
+  // Dates
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  agency               Agency       @relation(fields: [agencyId], references: [id])
+  agent                AgencyAgent? @relation(fields: [agentId], references: [id])
+  
+  @@map("commission_structures")
+}
+
+enum CommissionType {
+  PERCENTAGE     // % de la vente
+  FIXED          // Montant fixe par vente
+  PER_SQM        // Par m² vendu
+  TIERED         // Paliers selon montant
+}
+
+enum CommissionBase {
+  TOTAL_SALE      // Sur prix final client
+  AGENCY_MARGIN   // Sur marge agence uniquement
+  CESSION_PRICE   // Sur prix de cession
+}
+
+// ========================================
+// MODIFICATIONS DES MODÈLES EXISTANTS
+// ========================================
+
+// Ajout de relations dans Developer
+model Developer {
+  // ... champs existants ...
+  
+  // Nouvelles relations
+  pricingRules         PricingRule[]
+}
+
+// Ajout de relations dans Agency
+model Agency {
+  // ... champs existants ...
+  
+  // Nouvelles relations
+  pricingRules         PricingRule[]
+  marginConfigs        MarginConfig[]
+  commissionStructures CommissionStructure[]
+}
+
+// Ajout de relations dans AgencyAgent
+model AgencyAgent {
+  // ... champs existants ...
+  
+  // Performance détaillée
+  currentMonthSales    Int      @default(0)
+  lastMonthSales       Int      @default(0)
+  averageMargin        Float?
+  
+  // Nouvelles relations
+  marginConfigs        MarginConfig[]
+  commissionStructures CommissionStructure[]
+  commissions          Commission[]
+}
+
+// Ajout de relations dans Partnership
+model Partnership {
+  // ... champs existants ...
+  
+  // Nouvelles relations
+  pricingRules         PricingRule[]
+}
+
+// Ajout de relations dans Project
+model Project {
+  // ... champs existants ...
+  
+  // Nouvelles relations
+  plotTypeConfigs      PlotTypeConfig[]
+  pricingRules         PricingRule[]
+}
+
+// Modification du modèle Plot
+model Plot {
+  // ... champs existants SAUF type et currentPricePerSqm ...
+  
+  // Nouveau système
+  plotTypeConfigId     String?  @db.ObjectId
+  
+  // Prix effectif (calculé selon règles au moment de la réservation)
+  effectivePricePerSqm Float?
+  effectivePricingRuleId String? @db.ObjectId
+  
+  // Relations
+  plotTypeConfig       PlotTypeConfig? @relation(fields: [plotTypeConfigId], references: [id])
+}
+
+// Modification du modèle Reservation
+model Reservation {
+  // ... champs existants ...
+  
+  // Détails de pricing appliqués
+  appliedPricingRuleId String?  @db.ObjectId
+  appliedMarginConfigId String? @db.ObjectId
+  
+  // Calculs détaillés
+  calculationDetails   Json?    // Sauvegarde du calcul complet
+  
+  // Relations
+  commissions          Commission[]
+}
+
+// ========================================
+// COMMISSION CALCULÉE
+// ========================================
+
+model Commission {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  reservationId        String   @db.ObjectId
+  agentId              String   @db.ObjectId
+  structureId          String?  @db.ObjectId  // Référence à CommissionStructure
+  
+  // Montants
+  baseAmount           Float    // Montant de base de calcul
+  commissionAmount     Float    // Montant commission calculé
+  
+  // Bonifications
+  performanceBonus     Float?
+  totalCommission      Float    // Commission totale
+  
+  // Statut paiement
+  status               CommissionStatus @default(PENDING)
+  paidAt               DateTime?
+  paymentReference     String?
+  
+  // Dates
+  calculatedAt         DateTime @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  // Relations
+  reservation          Reservation           @relation(fields: [reservationId], references: [id])
+  agent                AgencyAgent           @relation(fields: [agentId], references: [id])
+  structure            CommissionStructure?  @relation(fields: [structureId], references: [id])
+  
+  @@map("commissions")
+}
+
+enum CommissionStatus {
+  PENDING
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+// ========================================
+// HISTORIQUE DES CALCULS
+// ========================================
+
+model PriceCalculation {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  plotId               String   @db.ObjectId
+  reservationId        String?  @db.ObjectId
+  
+  // Données d'entrée
+  surfaceArea          Float
+  requestedBy          String   // User ID
+  
+  // Règles appliquées
+  pricingRuleId        String?  @db.ObjectId
+  marginConfigId       String?  @db.ObjectId
+  
+  // Résultats
+  cessionPricePerSqm   Float
+  agencyMarginPerSqm   Float
+  finalPricePerSqm     Float
+  
+  cessionPrice         Float
+  agencyMargin         Float
+  finalPrice           Float
+  
+  // Détails complets en JSON
+  calculationBreakdown Json
+  
+  // Date
+  createdAt            DateTime @default(now())
+  
+  @@map("price_calculations")
+}

@@ -1,0 +1,88 @@
+.footer {
+    background-color: #000000;
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 60px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.tagline {
+    color: #a0aec0;
+    line-height: 1.5;
+    max-width: 300px;
+}
+
+.socials {
+    display: flex;
+    gap: 16px;
+    color: white;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.column h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.column a {
+    color: #a0aec0;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.column a:hover {
+    color: var(--primary);
+}
+
+.bottom {
+    border-top: 1px solid #2d3748;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #718096;
+    font-size: 14px;
+}
+
+.flags {
+    display: flex;
+    gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}

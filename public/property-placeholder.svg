@@ -1,0 +1,85 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky gradient -->
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="building" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#006AFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0049B0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  
+  <!-- Ground -->
+  <rect y="650" width="1200" height="150" fill="#2C5F2D"/>
+  
+  <!-- Building complex -->
+  <g>
+    <!-- Left building -->
+    <rect x="200" y="350" width="200" height="300" fill="url(#building)" opacity="0.9"/>
+    <rect x="220" y="380" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="270" y="380" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="320" y="380" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="220" y="450" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="270" y="450" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="320" y="450" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="220" y="520" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="270" y="520" width="40" height="50" fill="white" opacity="0.7"/>
+    <rect x="320" y="520" width="40" height="50" fill="white" opacity="0.7"/>
+    
+    <!-- Center tall building -->
+    <rect x="450" y="200" width="250" height="450" fill="url(#building)"/>
+    <rect x="480" y="240" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="545" y="240" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="610" y="240" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="480" y="320" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="545" y="320" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="610" y="320" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="480" y="400" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="545" y="400" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="610" y="400" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="480" y="480" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="545" y="480" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="610" y="480" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="480" y="560" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="545" y="560" width="50" height="60" fill="white" opacity="0.7"/>
+    <rect x="610" y="560" width="50" height="60" fill="white" opacity="0.7"/>
+    
+    <!-- Right building -->
+    <rect x="750" y="300" width="220" height="350" fill="url(#building)" opacity="0.95"/>
+    <rect x="775" y="335" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="835" y="335" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="895" y="335" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="775" y="410" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="835" y="410" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="895" y="410" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="775" y="485" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="835" y="485" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="895" y="485" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="775" y="560" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="835" y="560" width="45" height="55" fill="white" opacity="0.7"/>
+    <rect x="895" y="560" width="45" height="55" fill="white" opacity="0.7"/>
+  </g>
+  
+  <!-- Palm trees -->
+  <g>
+    <rect x="100" y="580" width="15" height="70" fill="#8B4513"/>
+    <ellipse cx="107" cy="570" rx="50" ry="30" fill="#2C5F2D"/>
+    
+    <rect x="1050" y="580" width="15" height="70" fill="#8B4513"/>
+    <ellipse cx="1057" cy="570" rx="50" ry="30" fill="#2C5F2D"/>
+  </g>
+  
+  <!-- Logo/Text overlay -->
+  <rect x="0" y="700" width="1200" height="100" fill="black" opacity="0.6"/>
+  <text x="600" y="745" font-family="Arial, sans-serif" font-size="42" fill="white" text-anchor="middle" font-weight="bold">
+    DIWAAN SÉNÉGAL
+  </text>
+  <text x="600" y="780" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle">
+    Votre propriété de rêve à Dakar
+  </text>
+</svg>

@@ -1,0 +1,117 @@
+.header {
+    border-bottom: 1px solid var(--border);
+    background-color: var(--card);
+    /* Updated for dark mode */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.nav {
+    display: flex;
+    gap: 16px;
+    /* Reduced gap to fit more items */
+}
+
+/* Dropdown Styles */
+.navItem {
+    position: relative;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.navLink {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    position: relative;
+    padding: 0 12px;
+    cursor: pointer;
+    text-decoration: none;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.navLink:hover {
+    color: var(--primary);
+    background-color: rgba(0, 106, 255, 0.05);
+}
+
+.navItem:hover .dropdownMenu {
+    display: block;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.dropdownMenu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: var(--card);
+    min-width: 260px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 16px 0;
+    z-index: 100;
+}
+
+.dropdownItem {
+    display: block;
+    padding: 12px 24px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.1s;
+}
+
+.dropdownItem:hover {
+    background-color: var(--muted);
+    color: var(--primary);
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--border);
+    margin: 8px 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}

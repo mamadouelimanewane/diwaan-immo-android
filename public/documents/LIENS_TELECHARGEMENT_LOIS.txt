@@ -1,0 +1,37 @@
+LIENS DE TÉLÉCHARGEMENT DIRECTS (PDF)
+=====================================
+
+Voici une liste de liens directs ou très proches pour télécharger les versions officielles des textes.
+Ouvrez ces liens dans votre navigateur, téléchargez le PDF, et remplacez le fichier correspondant dans 'public/documents/'.
+
+1. Loi n° 64-46 du 17 juin 1964 (Domaine National)
+   URL: http://www.au-senegal.com/IMG/pdf/loi_n_64-46_du_17_juin_1964_relative_au_domaine_national.pdf
+   Cible: public/documents/loi-64-46.pdf
+
+2. Loi n° 2011-07 du 30 mars 2011 (Propriété Foncière)
+   URL: https://www.fao.org/faolex/results/details/fr/c/LEX-FAOC12848/  (Chercher le PDF dans la barre latérale "Texte intégral")
+   OU (Journal Officiel): http://www.jo.gouv.sn (Rechercher JO n° 6607 du 13 août 2011)
+   Cible: public/documents/loi-2011-07.pdf
+
+3. Code de l'Urbanisme 2023 (Loi n° 2023-20)
+   URL (Archives Nationales): https://archives.sn (Rechercher "Loi 2023-20")
+   Note: Le fichier est volumineux (~32 Mo).
+   Cible: public/documents/code-urbanisme-2023.pdf
+
+4. Code du Domaine de l'État (Loi n° 76-66)
+   URL: http://www.dri.gouv.sn/sites/default/files/textes_reglementaires/LOI%20N%201976%2066%20DU%202%20JUILLET%201976.pdf
+   Cible: public/documents/code-domaine-etat.pdf
+
+5. Décret n° 2009-1450 (Code de l'Urbanisme - Partie Réglementaire)
+   URL: http://www.dscos.gouv.sn (Chercher dans "Textes réglementaires")
+   Ou via : http://www.au-senegal.com/IMG/pdf/decret_n_2009-1450.pdf (Lien probable à vérifier)
+   Cible: public/documents/decret-2009-1450.pdf
+
+6. Décret n° 72-1288 (Affectation des terres)
+   URL: http://www.au-senegal.com/IMG/pdf/decret_n_72-1288_du_27_octobre_1972.pdf
+   Cible: public/documents/decret-72-1288.pdf
+
+7. Barème des Transactions (CGI)
+   Ceci est généralement un extrait du Code Général des Impôts.
+   Chercher "CGI Sénégal Droits d'enregistrement" sur http://dgid.sn
+   Cible: public/documents/bareme-transactions.pdf

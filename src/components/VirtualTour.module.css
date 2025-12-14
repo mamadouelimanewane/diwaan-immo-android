@@ -1,0 +1,108 @@
+.topControls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 20;
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modeBtn {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #4A5568;
+}
+
+.modeBtn.active {
+    background: #006AFF;
+    color: white;
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.viewer {
+    display: flex;
+    overflow-x: scroll;
+    height: 100%;
+    scrollbar-width: none;
+    /* Firefox */
+    cursor: grab;
+}
+
+.viewer::-webkit-scrollbar {
+    display: none;
+}
+
+.panorama {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    /* Aspect ratio is high for panoramas */
+    min-width: 200%;
+}
+
+.controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
+.badge {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    backdrop-filter: blur(4px);
+}
+
+.toggleBtn {
+    background: white;
+    color: #002B49;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    pointer-events: none;
+}
