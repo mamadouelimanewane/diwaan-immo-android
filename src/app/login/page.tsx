@@ -17,8 +17,8 @@ export default function LoginPage() {
 
         try {
             await login(email, password);
-            // Redirection après connexion réussie
-            window.location.href = '/dashboard';
+            // Redirection après connexion réussie vers le dashboard admin
+            window.location.href = '/admin';
         } catch (err: any) {
             console.error(err);
             setError(err.message || 'Échec de la connexion. Veuillez vérifier vos identifiants.');
