@@ -120,7 +120,20 @@ export default function AdminSidebar() {
     ];
 
     return (
-        <aside className="w-64 bg-gray-900 text-white min-h-screen fixed left-0 top-0 overflow-y-auto">
+        <aside
+            className="w-64 bg-gray-900 text-white min-h-screen fixed left-0 top-0 overflow-y-auto"
+            style={{
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                width: '256px',
+                height: '100vh',
+                backgroundColor: '#111827',
+                color: 'white',
+                overflowY: 'auto',
+                zIndex: 1000
+            }}
+        >
             {/* Logo */}
             <div className="p-6 border-b border-gray-800">
                 <Link href="/" className="flex items-center gap-2">
@@ -200,7 +213,7 @@ export default function AdminSidebar() {
             </nav>
 
             {/* User Info */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800">
+            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800" style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
                         <span className="text-lg">👤</span>

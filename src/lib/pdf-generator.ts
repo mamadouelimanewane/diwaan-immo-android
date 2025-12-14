@@ -2,47 +2,47 @@
 // Utilise jsPDF pour la génération client-side ou server-side
 
 interface ReservationPDFData {
-    reservationNumber: string;
-    date: Date;
+  reservationNumber: string;
+  date: Date;
 
-    // Client
-    clientFirstName: string;
-    clientLastName: string;
-    clientEmail: string;
-    clientPhone: string;
-    clientAddress?: string;
-    clientCIN?: string;
+  // Client
+  clientFirstName: string;
+  clientLastName: string;
+  clientEmail: string;
+  clientPhone: string;
+  clientAddress?: string;
+  clientCIN?: string;
 
-    // Parcelle
-    plotNumber: string;
-    block?: string;
-    surfaceArea: number;
-    projectName: string;
-    projectLocation: string;
+  // Parcelle
+  plotNumber: string;
+  block?: string;
+  surfaceArea: number;
+  projectName: string;
+  projectLocation: string;
 
-    // Prix
-    cessionPricePerSqm: number;
-    agencyMarginPerSqm: number;
-    finalPricePerSqm: number;
-    cessionPrice: number;
-    agencyMargin: number;
-    finalPrice: number;
-    cashDiscount: number;
+  // Prix
+  cessionPricePerSqm: number;
+  agencyMarginPerSqm: number;
+  finalPricePerSqm: number;
+  cessionPrice: number;
+  agencyMargin: number;
+  finalPrice: number;
+  cashDiscount: number;
 
-    // Paiement
-    paymentType: 'CASH' | 'INSTALLMENT';
-    downPayment: number;
-    balance: number;
+  // Paiement
+  paymentType: 'CASH' | 'INSTALLMENT';
+  downPayment: number;
+  balance: number;
 
-    // Agence
-    agencyName: string;
-    agencyAddress: string;
-    agencyPhone: string;
-    agencyEmail: string;
+  // Agence
+  agencyName: string;
+  agencyAddress: string;
+  agencyPhone: string;
+  agencyEmail: string;
 
-    // Promoteur
-    developerName: string;
-    developerAddress: string;
+  // Promoteur
+  developerName: string;
+  developerAddress: string;
 }
 
 /**
@@ -50,10 +50,10 @@ interface ReservationPDFData {
  * Peut être utilisé pour générer un PDF ou afficher directement
  */
 export function generateReservationContractHTML(data: ReservationPDFData): string {
-    const formatPrice = (price: number) => price.toLocaleString('fr-FR');
-    const formatDate = (date: Date) => date.toLocaleDateString('fr-FR');
+  const formatPrice = (price: number) => price.toLocaleString('fr-FR');
+  const formatDate = (date: Date) => date.toLocaleDateString('fr-FR');
 
-    return `
+  return `
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -332,11 +332,11 @@ export function generateReservationContractHTML(data: ReservationPDFData): strin
 /**
  * Génère le contenu HTML d'un bordereau de paiement
  */
-export function generatePaymentReceipt  HTML(data: any): string {
-    const formatPrice = (price: number) => price.toLocaleString('fr-FR');
-    const formatDate = (date: Date) => date.toLocaleDateString('fr-FR');
+export function generatePaymentReceiptHTML(data: any): string {
+  const formatPrice = (price: number) => price.toLocaleString('fr-FR');
+  const formatDate = (date: Date) => date.toLocaleDateString('fr-FR');
 
-    return `
+  return `
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -432,4 +432,4 @@ export function generatePaymentReceipt  HTML(data: any): string {
   `.trim();
 }
 
-export { ReservationPDFData };
+export type { ReservationPDFData };

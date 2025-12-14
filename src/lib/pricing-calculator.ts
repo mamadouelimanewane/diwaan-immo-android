@@ -148,7 +148,7 @@ export async function calculatePlotPrice(
                 cessionPrice,
                 agencyMargin,
                 finalPrice,
-                calculationBreakdown: {
+                calculationBreakdown: JSON.parse(JSON.stringify({
                     input,
                     pricingRule,
                     marginConfig,
@@ -157,14 +157,14 @@ export async function calculatePlotPrice(
                     cashDiscountRate,
                     agentCommission,
                     timestamp: new Date().toISOString(),
-                },
+                })),
             },
         });
 
         return {
             cessionPricePerSqm,
             agencyMarginPerSqm,
-            final PricePerSqm,
+            finalPricePerSqm,
             cessionPrice,
             agencyMargin,
             finalPrice,
