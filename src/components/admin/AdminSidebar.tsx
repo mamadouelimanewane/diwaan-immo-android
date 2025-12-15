@@ -51,6 +51,15 @@ export default function AdminSidebar() {
                     <NavItem href="/admin/workflows" icon="⚡" label="Automatisations" />
                     <NavItem href="/admin/intelligence" icon="🧠" label="Intelligence IA" />
 
+                    {/* Partenariat - NOUVEAU */}
+                    <div style={{ padding: '8px 24px', fontSize: '11px', opacity: 0.5, fontWeight: 'bold', marginTop: '16px' }}>PARTENARIAT 🆕</div>
+                    <NavItem href="/admin/partnership/developers" icon="🏗️" label="Promoteurs" />
+                    <NavItem href="/admin/partnership/agencies" icon="🏢" label="Agences" />
+                    <NavItem href="/admin/partnership/partnerships" icon="📄" label="Contrats" />
+                    <NavItem href="/admin/partnership/projects" icon="🏗️" label="Projets" />
+                    <NavItem href="/admin/partnership/plots" icon="📦" label="Parcelles" />
+                    <NavItem href="/admin/partnership/reservations" icon="📋" label="Réservations" />
+
                     {/* Système */}
                     <div style={{ padding: '8px 24px', fontSize: '11px', opacity: 0.5, fontWeight: 'bold', marginTop: '16px' }}>SYSTÈME</div>
                     <NavItem href="/admin/security" icon="🔒" label="Sécurité & Logs" />
