@@ -241,7 +241,7 @@ async function main() {
             type: 'APARTMENT',
             transactionType: 'RENT',
             status: 'ACTIVE',
-            price: 1250000,
+            price: 650000,
             surface: 220,
             bedrooms: 3,
             bathrooms: 3,
