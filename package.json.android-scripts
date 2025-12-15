@@ -1,0 +1,18 @@
+{
+  "name": "zillow-clone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "android:open": "npx cap open android",
+    "android:sync": "npx cap sync android",
+    "android:build": "cd android && gradlew assembleDebug",
+    "android:build:release": "cd android && gradlew assembleRelease",
+    "android:install": "cd android && gradlew installDebug",
+    "apk:generate": "npm run android:sync && npm run android:build",
+    "apk:help": "echo 'Pour générer l APK: 1. npm run android:open 2. Dans Android Studio: Build > Build APK'"
+  }
+}
