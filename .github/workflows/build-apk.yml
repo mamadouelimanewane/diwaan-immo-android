@@ -20,39 +20,29 @@ jobs:
         distribution: 'temurin'
         
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      uses: android-actions/setup-android@v3
+      
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
       
     - name: Grant execute permission for gradlew
       run: chmod +x android/gradlew
       
-    - name: Build APK
+    - name: Build APK Debug
       run: |
         cd android
-        ./gradlew assembleDebug --stacktrace
+        ./gradlew assembleDebug --no-daemon --stacktrace
         
-    - name: Upload APK
+    - name: Upload APK as Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: diwaan-immo-debug
+        name: diwaan-immo-apk
         path: android/app/build/outputs/apk/debug/app-debug.apk
-        
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v${{ github.run_number }}
-        release_name: Diwaan Immo APK v${{ github.run_number }}
-        draft: false
-        prerelease: false
-        
-    - name: Upload Release APK
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: android/app/build/outputs/apk/debug/app-debug.apk
-        asset_name: diwaan-immo-v${{ github.run_number }}.apk
-        asset_content_type: application/vnd.android.package-archive
+        retention-days: 30
