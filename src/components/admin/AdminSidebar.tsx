@@ -74,12 +74,6 @@ export default function AdminSidebar() {
                     <NavItem href="/admin/system" icon="⚙️" label="Configuration" />
                 </ul>
             </nav>
-
-            {/* Logo Area - NOW AT BOTTOM */}
-            <div style={{ padding: '24px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                <h1 style={{ fontSize: '24px', fontWeight: 'bold', letterSpacing: '1px' }}>Diwaan<span style={{ color: '#006AFF' }}>Admin</span></h1>
-                <p style={{ fontSize: '12px', opacity: 0.6, marginTop: '4px' }}>Backoffice de gestion</p>
-            </div>
         </div>
     );
 }
