@@ -1,23 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function UsersPage() {
-    const [users, setUsers] = useState([
-        { id: 1, name: 'Amadou Fall', email: 'amadou.fall@example.com', role: 'Agent', status: 'Actif', lastLogin: '07 Déc 2025' },
-        { id: 2, name: 'Sophie Diop', email: 'sophie.diop@gmail.com', role: 'Utilisateur', status: 'Actif', lastLogin: '06 Déc 2025' },
-        { id: 3, name: 'Jean Mendy', email: 'j.mendy@immopro.sn', role: 'Admin', status: 'Actif', lastLogin: '07 Déc 2025' },
-        { id: 4, name: 'Fatou Cissé', email: 'fatou.c@yahoo.fr', role: 'Utilisateur', status: 'Suspendu', lastLogin: '20 Nov 2025' },
-        { id: 5, name: 'Agence Teranga', email: 'contact@teranga-immo.sn', role: 'Agent', status: 'Actif', lastLogin: '05 Déc 2025' },
-    ]);
-
+    const [users, setUsers] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
 
-    const handleDelete = (id: number) => {
+    // Load users from API
+    useEffect(() => {
+        loadUsers();
+    }, []);
+
+    const loadUsers = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/users');
+            const data = await response.json();
+            if (data.success) {
+                setUsers(data.users);
+            }
+        } catch (error) {
+            console.error('Failed to load users', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
         if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-            setUsers(users.filter(u => u.id !== id));
+            try {
+                const response = await fetch(`/api/users/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                if (data.success) {
+                    loadUsers(); // Reload list
+                } else {
+                    alert('Erreur lors de la suppression');
+                }
+            } catch (error) {
+                alert('Erreur lors de la suppression');
+                console.error(error);
+            }
         }
     };
 
@@ -43,70 +70,74 @@ export default function UsersPage() {
             </div>
 
             <div style={{ background: 'white', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr style={{ textAlign: 'left', color: '#A3AED0', borderBottom: '1px solid #eee' }}>
-                            <th style={{ padding: '16px' }}>Nom</th>
-                            <th style={{ padding: '16px' }}>Email</th>
-                            <th style={{ padding: '16px' }}>Rôle</th>
-                            <th style={{ padding: '16px' }}>Dernière Connexion</th>
-                            <th style={{ padding: '16px' }}>Statut</th>
-                            <th style={{ padding: '16px', textAlign: 'right' }}>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user) => (
-                            <tr key={user.id} style={{ borderBottom: '1px solid #f9f9f9', fontSize: '14px' }}>
-                                <td style={{ padding: '16px', fontWeight: 'bold', color: '#1B254B' }}>{user.name}</td>
-                                <td style={{ padding: '16px', color: '#666' }}>{user.email}</td>
-                                <td style={{ padding: '16px' }}>
-                                    <span style={{
-                                        padding: '4px 10px',
-                                        borderRadius: '6px',
-                                        fontWeight: 'bold',
-                                        fontSize: '12px',
-                                        background: user.role === 'Admin' ? '#E6E6FA' : user.role === 'Agent' ? '#E6F8F1' : '#F4F7FE',
-                                        color: user.role === 'Admin' ? '#4318FF' : user.role === 'Agent' ? '#05CD99' : '#006AFF'
-                                    }}>
-                                        {user.role}
-                                    </span>
-                                </td>
-                                <td style={{ padding: '16px', color: '#666' }}>{user.lastLogin}</td>
-                                <td style={{ padding: '16px' }}>
-                                    <span style={{
-                                        color: user.status === 'Actif' ? '#05CD99' : '#E31A1A',
-                                        fontWeight: 'bold'
-                                    }}>
-                                        • {user.status}
-                                    </span>
-                                </td>
-                                <td style={{ padding: '16px', textAlign: 'right' }}>
-                                    <button
-                                        onClick={() => handleGodMode(user)}
-                                        style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '8px', fontSize: '18px' }}
-                                        title="Se connecter en tant que (God Mode)"
-                                    >
-                                        🔑
-                                    </button>
-                                    <button
-                                        onClick={() => handleEdit(user)}
-                                        style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '8px', fontSize: '18px' }}
-                                        title="Modifier"
-                                    >
-                                        ✏️
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(user.id)}
-                                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px' }}
-                                        title="Supprimer"
-                                    >
-                                        🗑️
-                                    </button>
-                                </td>
+                {loading ? (
+                    <div style={{ padding: '40px', textAlign: 'center', color: '#888' }}>Chargement des utilisateurs...</div>
+                ) : (
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                            <tr style={{ textAlign: 'left', color: '#A3AED0', borderBottom: '1px solid #eee' }}>
+                                <th style={{ padding: '16px' }}>Nom</th>
+                                <th style={{ padding: '16px' }}>Email</th>
+                                <th style={{ padding: '16px' }}>Rôle</th>
+                                <th style={{ padding: '16px' }}>Dernière Connexion</th>
+                                <th style={{ padding: '16px' }}>Statut</th>
+                                <th style={{ padding: '16px', textAlign: 'right' }}>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.id} style={{ borderBottom: '1px solid #f9f9f9', fontSize: '14px' }}>
+                                    <td style={{ padding: '16px', fontWeight: 'bold', color: '#1B254B' }}>{user.name}</td>
+                                    <td style={{ padding: '16px', color: '#666' }}>{user.email}</td>
+                                    <td style={{ padding: '16px' }}>
+                                        <span style={{
+                                            padding: '4px 10px',
+                                            borderRadius: '6px',
+                                            fontWeight: 'bold',
+                                            fontSize: '12px',
+                                            background: user.role === 'Admin' ? '#E6E6FA' : user.role === 'Agent' ? '#E6F8F1' : '#F4F7FE',
+                                            color: user.role === 'Admin' ? '#4318FF' : user.role === 'Agent' ? '#05CD99' : '#006AFF'
+                                        }}>
+                                            {user.role}
+                                        </span>
+                                    </td>
+                                    <td style={{ padding: '16px', color: '#666' }}>{user.lastLogin}</td>
+                                    <td style={{ padding: '16px' }}>
+                                        <span style={{
+                                            color: user.status === 'Actif' ? '#05CD99' : '#E31A1A',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            • {user.status}
+                                        </span>
+                                    </td>
+                                    <td style={{ padding: '16px', textAlign: 'right' }}>
+                                        <button
+                                            onClick={() => handleGodMode(user)}
+                                            style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '8px', fontSize: '18px' }}
+                                            title="Se connecter en tant que (God Mode)"
+                                        >
+                                            🔑
+                                        </button>
+                                        <button
+                                            onClick={() => handleEdit(user)}
+                                            style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '8px', fontSize: '18px' }}
+                                            title="Modifier"
+                                        >
+                                            ✏️
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(user.id)}
+                                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px' }}
+                                            title="Supprimer"
+                                        >
+                                            🗑️
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
 
             {/* Modal Ajouter */}

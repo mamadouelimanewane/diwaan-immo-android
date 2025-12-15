@@ -1,103 +1,144 @@
-# 🔧 MANUEL TECHNIQUE - DIWAAN
-## Documentation Technique Complète
+# 🔧 MANUEL TECHNIQUE - DIWAAN PLATFORM
+**Documentation Développeur**
 
-**Version** : 1.0.0  
-**Date** : 10 Décembre 2025  
-**Stack** : Next.js 15 + TypeScript + React 19
+Version 1.0.0 | Décembre 2025
 
 ---
 
-## 📑 TABLE DES MATIÈRES
+## 📋 TABLE DES MATIÈRES
 
 1. [Architecture](#architecture)
-2. [Stack Technique](#stack-technique)
+2. [Installation & Configuration](#installation--configuration)
 3. [Structure du Projet](#structure-du-projet)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-6. [Composants](#composants)
-7. [Routes & Pages](#routes--pages)
-8. [Context API](#context-api)
-9. [Styling](#styling)
-10. [API & Intégrations](#api--intégrations)
-11. [Base de Données](#base-de-données)
-12. [Déploiement](#déploiement)
-13. [Tests](#tests)
-14. [Performance](#performance)
-15. [Sécurité](#sécurité)
+4. [APIs](#apis)
+5. [Base de Données](#base-de-donnees)
+6. [Authentification & Sécurité](#authentification--securite)
+7. [Déploiement](#deploiement)
+8. [Tests](#tests)
+9. [Maintenance](#maintenance)
 
 ---
 
 ## 🏗️ ARCHITECTURE
 
-### Vue d'Ensemble
+### Stack Technique
+
+```
+Frontend:
+- Next.js 14.1.0 (React 18)
+- TypeScript
+- CSS Modules + Vanilla CSS
+- Leaflet (cartes interactives)
+
+Backend:
+- Next.js API Routes
+- Prisma ORM
+- MongoDB Atlas
+
+Authentification:
+- JWT Tokens
+- bcrypt (hashing)
+- Cookies sécurisés
+
+Infrastructure:
+- Vercel (hosting & CI/CD)
+- Cloudinary (images)
+- MongoDB Atlas (database)
+```
+
+### Architecture Applicative
 
 ```
 ┌─────────────────────────────────────────────┐
-│           FRONTEND (Next.js App)            │
-├─────────────────────────────────────────────┤
-│  React Components + TypeScript + CSS Modules│
-├─────────────────────────────────────────────┤
-│      Context API (State Management)         │
-├─────────────────────────────────────────────┤
-│         Next.js App Router                  │
-├─────────────────────────────────────────────┤
-│    Server Components + Client Components    │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│          API Routes (optionnel)             │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│        Base de Données (Future)             │
-│      PostgreSQL + Prisma ORM                │
+│           CLIENT (Browser)                  │
+│   Next.js Server-Side Rendering (SSR)      │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│         API ROUTES (/app/api/*)             │
+│  - Properties  - Users  - Auth              │
+│  - Developers  - Agencies  - Partnerships   │
+│  - Reservations  - Admin  - Backup          │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│            PRISMA ORM                       │
+│   - Type-safe queries                       │
+│   - Schema migrations                       │
+└─────────────────┬───────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────┐
+│         MongoDB Atlas (Cloud)               │
+│   - Properties  - Users  - Developers       │
+│   - Agencies  - Partnerships  - Favorites   │
 └─────────────────────────────────────────────┘
 ```
-
-### Patterns Utilisés
-
-- **Component Composition** : Composants réutilisables
-- **Context API** : State management global
-- **Server/Client Components** : Optimisation Next.js 15
-- **CSS Modules** : Scoped styling
-- **Dynamic Imports** : Code splitting
 
 ---
 
-## 💻 STACK TECHNIQUE
+## 🚀 INSTALLATION & CONFIGURATION
 
-### Core
+### Prérequis
 
-| Technologie | Version | Usage |
-|-------------|---------|-------|
-| **Next.js** | 15.0.3 | Framework React |
-| **React** | 19.0.0 | UI Library |
-| **TypeScript** | 5.x | Type safety |
-| **Node.js** | 20+ | Runtime |
+```bash
+- Node.js >= 18.x
+- npm ou yarn
+- Git
+- Compte MongoDB Atlas
+- Compte Vercel (pour déploiement)
+```
 
-### Styling
+### Installation Locale
 
-- **CSS Modules** : Styling scopé
-- **CSS Variables** : Theming
-- **Lucide React** : Icônes
+**1. Cloner le repository**
+```bash
+git clone https://github.com/your-org/zillow-clone.git
+cd zillow-clone
+```
 
-### Maps & Geo
+**2. Installer les dépendances**
+```bash
+npm install
+```
 
-- **Leaflet** : Carte interactive
-- **React-Leaflet** : Binding React
+**3. Configuration des variables d'environnement**
 
-### State Management
+Créer `.env.local` :
+```env
+# Database
+DATABASE_URL="mongodb+srv://user:password@cluster.mongodb.net/diwaan"
 
-- **Context API** : Global state
-- **React Hooks** : Local state
+# Authentication
+JWT_SECRET="your-super-secret-jwt-key-min-32-chars"
 
-### Future Stack
+# Email (Resend)
+RESEND_API_KEY="re_xxxxxxxxxxxxx"
 
-- **Prisma** : ORM base de données
-- **PostgreSQL** : Base de données
-- **NextAuth** : Authentification
-- **Cloudinary** : Upload images
-- **Stripe** : Paiements
+# Cloudinary
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="123456789012345"
+CLOUDINARY_API_SECRET="your-api-secret"
+
+# App
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
+**4. Générer Prisma Client**
+```bash
+npx prisma generate
+```
+
+**5. Synchroniser la base de données**
+```bash
+npx prisma db push
+```
+
+**6. Lancer en développement**
+```bash
+npm run dev
+```
+
+Application accessible sur : `http://localhost:3000`
 
 ---
 
@@ -105,560 +146,334 @@
 
 ```
 zillow-clone/
-├── public/                 # Assets statiques
-│   ├── images/
-│   └── icons/
-│
+├── prisma/
+│   └── schema.prisma          # Schéma base de données
+├── public/
+│   ├── placeholder.svg        # Images statiques
+│   └── property-placeholder.svg
 ├── src/
-│   ├── app/               # Next.js App Router
-│   │   ├── layout.tsx     # Root layout ('use client')
-│   │   ├── page.tsx       # Homepage
-│   │   ├── globals.css    # Styles globaux
-│   │   │
-│   │   ├── admin/         # Section Admin
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
+│   ├── app/                   # Pages Next.js 14 (App Router)
+│   │   ├── admin/             # Backoffice admin
+│   │   │   ├── login/
 │   │   │   ├── properties/
 │   │   │   ├── users/
-│   │   │   ├── agents/
-│   │   │   ├── content/
-│   │   │   ├── messages/
-│   │   │   ├── verification/
-│   │   │   ├── finance/
-│   │   │   ├── workflows/
-│   │   │   ├── ads/
-│   │   │   ├── intelligence/
-│   │   │   └── security/
-│   │   │
-│   │   ├── login/         # Authentification
-│   │   ├── dashboard/     # User dashboard
-│   │   ├── search/        # Recherche + Map
-│   │   ├── rent/          # Location
-│   │   ├── sell/          # Vente
-│   │   ├── agents/        # Liste agents
-│   │   ├── loans/         # Prêts
-│   │   └── ...
-│   │
-│   ├── components/        # Composants réutilisables
+│   │   │   ├── security/
+│   │   │   └── page.tsx       # Dashboard
+│   │   ├── api/               # API Routes
+│   │   │   ├── admin/
+│   │   │   ├── auth/
+│   │   │   ├── properties/
+│   │   │   ├── users/
+│   │   │   ├── developers/
+│   │   │   ├── agencies/
+│   │   │   ├── partnerships/
+│   │   │   └── reservations/
+│   │   ├── homes/[id]/        # Page détail propriété
+│   │   ├── search/            # Page recherche
+│   │   ├── login/
+│   │   ├── register/
+│   │   └── page.tsx           # Page d'accueil
+│   ├── components/            # Composants React
 │   │   ├── layout/
 │   │   │   ├── Header.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── LayoutWrapper.tsx
-│   │   │
-│   │   ├── admin/
-│   │   │   ├── AdminSidebar.tsx
-│   │   │   └── AdminChart.tsx
-│   │   │
-│   │   ├── map/
-│   │   │   └── Map.tsx    # Leaflet (no SSR)
-│   │   │
+│   │   │   └── Footer.tsx
 │   │   ├── PropertyCard.tsx
-│   │   ├── Gallery.tsx
-│   │   └── SenrewBot.tsx  # → DiwaanBot
-│   │
-│   ├── context/           # Context API
+│   │   ├── SearchFilters.tsx
+│   │   └── Gallery.tsx
+│   ├── context/               # React Context
 │   │   ├── AuthContext.tsx
 │   │   ├── FavoritesContext.tsx
-│   │   ├── ThemeContext.tsx
-│   │   └── LanguageContext.tsx
-│   │
-│   └── lib/               # Utilities
-│       ├── data.ts        # Mock data
-│       ├── openai.ts      # OpenAI config
-│       └── utils.ts       # Helper functions
-│
-├── docs/                  # Documentation
+│   │   └── ThemeContext.tsx
+│   ├── lib/                   # Utilitaires
+│   │   ├── api-client.ts      # Client API
+│   │   ├── prisma.ts          # Instance Prisma
+│   │   ├── jwt.ts             # JWT helpers
+│   │   ├── cloudinary.ts      # Cloudinary helpers
+│   │   ├── permissions.ts     # Système permissions
+│   │   └── validators.ts      # Schémas Zod
+│   ├── middleware.ts          # Middleware Next.js
+│   └── globals.css            # Styles globaux
+├── docs/                      # Documentation
 │   ├── MANUEL_UTILISATEUR.md
 │   ├── MANUEL_TECHNIQUE.md
-│   └── MANUEL_ADMINISTRATION.md
-│
-├── .env.local             # Variables d'environnement
-├── next.config.mjs        # Config Next.js
-├── tsconfig.json          # Config TypeScript
-├── package.json           # Dependencies
-└── README.md
+│   └── MANUEL_ADMINISTRATEUR.md
+├── .env.local                 # Variables environnement (local)
+├── next.config.mjs            # Config Next.js
+├── package.json
+└── tsconfig.json              # Config TypeScript
 ```
 
 ---
 
-## ⚙️ INSTALLATION
+## 🔌 APIs
 
-### Prérequis
+### Routes Principales
 
-- **Node.js** : >= 20.0.0
-- **npm** ou **yarn** ou **pnpm**
-- **Git**
+#### **Authentication** (`/api/auth`)
 
-### Installation Locale
-
-```bash
-# 1. Cloner le repo
-git clone https://github.com/your-org/diwaan.git
-cd diwaan
-
-# 2. Installer les dépendances
-npm install
-# ou
-yarn install
-# ou
-pnpm install
-
-# 3. Créer .env.local
-cp .env.example .env.local
-
-# 4. Lancer en dev
-npm run dev
-
-# 5. Ouvrir
-http://localhost:3001
-```
-
-### Commandes Disponibles
-
-```bash
-# Développement
-npm run dev          # Lance le serveur dev
-npm run build        # Build production
-npm run start        # Lance le build
-npm run lint         # Linter ESLint
-
-# Utilitaires
-npm run clean        # Nettoie .next et node_modules
-npm run type-check   # Vérification TypeScript
-```
-
----
-
-## 🔧 CONFIGURATION
-
-### Variables d'Environnement
-
-Créez `.env.local` :
-
-```env
-# App
-NEXT_PUBLIC_APP_NAME=Diwaan
-NEXT_PUBLIC_APP_URL=http://localhost:3001
-
-# API Keys (Future)
-OPENAI_API_KEY=sk-...
-MAPBOX_TOKEN=pk.eyJ1...
-
-# Database (Future)
-DATABASE_URL=postgresql://user:pass@localhost:5432/diwaan
-
-# Auth (Future)
-NEXTAUTH_URL=http://localhost:3001
-NEXTAUTH_SECRET=your-secret-key
-
-# Upload (Future)
-CLOUDINARY_CLOUD_NAME=diwaan
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
-
-# Payment (Future)
-STRIPE_PUBLIC_KEY=pk_test...
-STRIPE_SECRET_KEY=sk_test...
-```
-
-### next.config.mjs
-
-```javascript
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com'],
-    formats: ['image/avif', 'image/webp'],
-  },
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-};
-
-export default nextConfig;
-```
-
-### tsconfig.json
-
-```json
+**POST /api/auth/register**
+```typescript
+Request:
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [{"name": "next"}],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
-```
-
----
-
-## 🧩 COMPOSANTS
-
-### Composants Clés
-
-#### PropertyCard
-
-**Fichier** : `src/components/PropertyCard.tsx`
-
-```typescript
-'use client';
-
-import { Property } from '@/lib/data';
-import { Heart } from 'lucide-react';
-import Link from 'next/link';
-import { useFavorites } from '@/context/FavoritesContext';
-
-export default function PropertyCard({ property }: { property: Property }) {
-  const { isFavorite, toggleFavorite } = useFavorites();
-  
-  return (
-    <div className={styles.card}>
-      {/* Image + Favori */}
-      <div className={styles.imageContainer}>
-        <img src={property.imageUrl} alt={property.address} />
-        <button onClick={() => toggleFavorite(property.id)}>
-          <Heart fill={isFavorite(property.id) ? 'red' : 'none'} />
-        </button>
-      </div>
-      
-      {/* Infos */}
-      <Link href={`/homes/${property.id}`}>
-        <div className={styles.content}>
-          <div className={styles.price}>{property.price} FCFA</div>
-          <div>{property.beds} ch | {property.baths} sdb</div>
-          <div>{property.address}, {property.city}</div>
-        </div>
-      </Link>
-    </div>
-  );
-}
-```
-
-#### Map (Leaflet)
-
-**Fichier** : `src/components/map/Map.tsx`
-
-```typescript
-'use client';
-
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Fix Leaflet icons
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/marker-icon-2x.png',
-  iconUrl: '/marker-icon.png',
-  shadowUrl: '/marker-shadow.png',
-});
-
-export default function Map({ properties }: { properties: Property[] }) {
-  return (
-    <MapContainer center={[14.6937, -17.4441]} zoom={12} style={{ height: '100%', width: '100%' }}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      
-      {properties.map(prop => (
-        <Marker key={prop.id} position={[prop.lat, prop.lng]}>
-          <Popup>
-            <strong>{prop.price} FCFA</strong><br />
-            {prop.address}
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
-}
-```
-
-**Import Dynamique** (pas de SSR) :
-
-```typescript
-import dynamic from 'next/dynamic';
-
-const Map = dynamic(() => import('@/components/map/Map'), {
-  ssr: false,
-  loading: () => <div>Chargement carte...</div>
-});
-```
-
----
-
-## 🛣️ ROUTES & PAGES
-
-### Route Structure
-
-| Route | Type | Description |
-|-------|------|-------------|
-| `/` | Server | Homepage |
-| `/search` | Client | Recherche + Map |
-| `/rent` | Server | Liste locations |
-| `/sell` | Server | Options vente |
-| `/agents` | Client | Liste agents |
-| `/login` | Client | Authentification |
-| `/dashboard` | Client | Dashboard user |
-| `/admin/*` | Client | Administration |
-
-### Server vs Client Components
-
-**Server Component** (par défaut) :
-```typescript
-// Pas de 'use client'
-export default function HomePage() {
-  return <div>Static content</div>;
-}
-```
-
-**Client Component** (interactivité) :
-```typescript
-'use client';
-
-import { useState } from 'react';
-
-export default function SearchPage() {
-  const [filters, setFilters] = useState({});
-  // ...
-}
-```
-
----
-
-## 🌐 CONTEXT API
-
-### AuthContext
-
-**Fichier** : `src/context/AuthContext.tsx`
-
-```typescript
-'use client';
-
-import { createContext, useContext, useState } from 'react';
-
-interface User {
-  id: string;
-  name: string;
   email: string;
-  role: 'admin' | 'agent' | 'user';
+  password: string;
+  name: string;
+  role?: 'USER' | 'AGENT' | 'ADMIN';
 }
 
-const AuthContext = createContext<{
-  user: User | null;
-  login: (email: string, role: string) => void;
-  logout: () => void;
-} | undefined>(undefined);
-
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  
-  const login = (email: string, role: 'admin' | 'agent' | 'user') => {
-    const newUser = { id: '1', name: email.split('@')[0], email, role };
-    setUser(newUser);
-    localStorage.setItem('diwaan_user', JSON.stringify(newUser));
-  };
-  
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('diwaan_user');
-  };
-  
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+Response:
+{
+  success: boolean;
+  user: User;
+  token: string;
 }
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be within AuthProvider');
-  return context;
-};
 ```
 
-### Utilisation
-
+**POST /api/auth/login**
 ```typescript
-'use client';
+Request:
+{
+  email: string;
+  password: string;
+}
 
-import { useAuth } from '@/context/AuthContext';
+Response:
+{
+  success: boolean;
+  user: User;
+  token: string;
+}
+```
 
-export default function LoginPage() {
-  const { login } = useAuth();
-  
-  const handleLogin = () => {
-    login('admin@diwaan.sn', 'admin');
+**GET /api/auth/me**
+```typescript
+Headers: { Authorization: "Bearer <token>" }
+
+Response:
+{
+  success: boolean;
+  user: User;
+}
+```
+
+#### **Properties** (`/api/properties`)
+
+**GET /api/properties**
+```typescript
+Query Params:
+{
+  transactionType?: 'SALE' | 'RENT';
+  city?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  type?: 'HOUSE' | 'APARTMENT' | 'LAND';
+  bedrooms?: number;
+  bathrooms?: number;
+}
+
+Response:
+{
+  success: boolean;
+  properties: Property[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
   };
 }
+```
+
+**POST /api/properties**
+```typescript
+Request:
+{
+  title: string;
+  description: string;
+  price: number;
+  transactionType: 'SALE' | 'RENT';
+  type: 'HOUSE' | 'APARTMENT' | 'LAND';
+  address: string;
+  city: string;
+  bedrooms: number;
+  bathrooms: number;
+  surface: number;
+  images: string[];
+  // ... autres champs
+}
+
+Response:
+{
+  success: boolean;
+  property: Property;
+}
+```
+
+**GET /api/properties/[id]**
+```typescript
+Response:
+{
+  success: boolean;
+  property: Property;
+}
+```
+
+**PUT /api/properties/[id]**
+```typescript
+Request: Partial<Property>
+
+Response:
+{
+  success: boolean;
+  property: Property;
+}
+```
+
+**DELETE /api/properties/[id]**
+```typescript
+Response:
+{
+  success: boolean;
+  message: string;
+}
+```
+
+#### **Users** (`/api/users`)
+
+**GET /api/users**
+```typescript
+Query: { role?: 'USER' | 'AGENT' | 'ADMIN' }
+
+Response:
+{
+  success: boolean;
+  users: User[];
+  count: number;
+}
+```
+
+**POST /api/users**
+```typescript
+Request:
+{
+  email: string;
+  name: string;
+  password: string;
+  role: 'USER' | 'AGENT' | 'ADMIN';
+  phone?: string;
+}
+
+Response:
+{
+  success: boolean;
+  user: User;
+}
+```
+
+#### **Admin** (`/api/admin`)
+
+**GET /api/admin/stats**
+```typescript
+Response:
+{
+  success: boolean;
+  stats: {
+    totalProperties: number;
+    totalUsers: number;
+    activeListings: number;
+    pendingListings: number;
+    revenue: string;
+  };
+}
+```
+
+**POST /api/admin/backup**
+```typescript
+Response:
+{
+  success: boolean;
+  backup: {
+    id: string;
+    timestamp: string;
+    size: string;
+    type: 'MANUAL' | 'AUTO';
+    status: 'COMPLETE';
+  };
+}
+```
+
+### Gestion des Erreurs
+
+```typescript
+// Format standard d'erreur
+{
+  success: false,
+  error: "Message d'erreur explicite"
+}
+
+// Codes HTTP utilisés
+200 - OK
+201 - Created
+400 - Bad Request
+401 - Unauthorized
+403 - Forbidden
+404 - Not Found
+500 - Internal Server Error
+503 - Service Unavailable
 ```
 
 ---
 
-## 🎨 STYLING
+## 🗄️ BASE DE DONNÉES
 
-### CSS Variables (globals.css)
+### Schéma Prisma
 
-```css
-:root {
-  --primary: #FF6B35;        /* Orange vif */
-  --primary-hover: #E63946;  /* Rouge corail */
-  --secondary: #06FFA5;      /* Cyan vif */
-  --background: #ffffff;
-  --foreground: #2a2a33;
-}
-
-[data-theme='dark'] {
-  --background: #0f111a;
-  --foreground: #ffffff;
-}
-```
-
-### CSS Modules
-
-**Button.module.css** :
-```css
-.button {
-  background: var(--primary);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.button:hover {
-  background: var(--primary-hover);
-  transform: translateY(-2px);
-}
-```
-
-**Usage** :
-```typescript
-import styles from './Button.module.css';
-
-<button className={styles.button}>Click me</button>
-```
-
----
-
-## 🔌 API & INTÉGRATIONS
-
-### OpenAI (DiwaanBot)
-
-**Fichier** : `src/lib/openai.ts`
-
-```typescript
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true, // Dev only
-});
-
-export async function chatWithBot(message: string): Promise<string> {
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4',
-    messages: [
-      {
-        role: 'system',
-        content: 'You are Diwaan AI assistant for real estate in Senegal...'
-      },
-      { role: 'user', content: message }
-    ],
-  });
-  
-  return completion.choices[0].message.content || 'Désolé, erreur.';
-}
-```
-
-### Leaflet Maps
-
-**Installation** :
-```bash
-npm install leaflet react-leaflet
-npm install -D @types/leaflet
-```
-
-**Configuration** : Dynamic import (no SSR)
-
----
-
-## 🗄️ BASE DE DONNÉES (FUTURE)
-
-### Prisma Schema
-
-**prisma/schema.prisma** :
+**Modèles Principaux :**
 
 ```prisma
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  password      String
+  name          String
+  phone         String?
+  role          Role      @default(USER)
+  avatar        String?
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   
-  properties Property[]
-  favorites  Favorite[]
+  properties    Property[]
+  favorites     Favorite[]
+  inquiries     Inquiry[]
 }
 
 model Property {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  price       Int
-  beds        Int
-  baths       Int
-  sqft        Int
-  address     String
-  city        String
-  lat         Float
-  lng         Float
-  imageUrl    String
-  type        PropertyType
-  status      PropertyStatus @default(ACTIVE)
-  createdAt   DateTime @default(now())
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  price           Float
+  transactionType TransactionType
+  type            PropertyType
+  status          PropertyStatus    @default(ACTIVE)
+  address         String
+  city            String
+  neighborhood    String?
+  bedrooms        Int
+  bathrooms       Int
+  surface         Float
+  images          String[]
+  latitude        Float?
+  longitude       Float?
+  featured        Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  ownerId         String            @db.ObjectId
+  owner           User              @relation(fields: [ownerId], references: [id])
   
-  favorites Favorite[]
-}
-
-model Favorite {
-  id         String   @id @default(cuid())
-  userId     String
-  propertyId String
-  createdAt  DateTime @default(now())
-  
-  user     User     @relation(fields: [userId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
-  
-  @@unique([userId, propertyId])
+  favorites       Favorite[]
+  inquiries       Inquiry[]
 }
 
 enum Role {
@@ -667,219 +482,343 @@ enum Role {
   ADMIN
 }
 
+enum TransactionType {
+  SALE
+  RENT
+}
+
 enum PropertyType {
   HOUSE
   APARTMENT
-  VILLA
   LAND
+  OFFICE
+  COMMERCIAL
 }
 
 enum PropertyStatus {
+  DRAFT
   ACTIVE
-  PENDING
   SOLD
+  RENTED
+  INACTIVE
 }
 ```
 
 ### Migrations
 
+**Créer une migration :**
 ```bash
-# Créer migration
-npx prisma migrate dev --name init
+npx prisma migrate dev --name add_new_field
+```
 
-# Générer client
-npx prisma generate
+**Appliquer en production :**
+```bash
+npx prisma migrate deploy
+```
 
-# Ouvrir Prisma Studio
-npx prisma studio
+**Reset (développement uniquement) :**
+```bash
+npx prisma migrate reset
+```
+
+---
+
+## 🔐 AUTHENTIFICATION & SÉCURITÉ
+
+### JWT Tokens
+
+**Génération :**
+```typescript
+// src/lib/jwt.ts
+import jwt from 'jsonwebtoken';
+
+export function signToken(payload: {
+  userId: string;
+  email: string;
+  role: string;
+}) {
+  return jwt.sign(payload, process.env.JWT_SECRET!, {
+    expiresIn: '24h'
+  });
+}
+
+export function verifyToken(token: string) {
+  return jwt.verify(token, process.env.JWT_SECRET!);
+}
+```
+
+**Utilisation API :**
+```typescript
+// Dans une API route
+import { verifyToken } from '@/lib/jwt';
+
+export async function GET(request: NextRequest) {
+  const token = request.cookies.get('token')?.value;
+  
+  if (!token) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  
+  try {
+    const payload = verifyToken(token);
+    // Continue...
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+  }
+}
+```
+
+### Middleware Protection
+
+```typescript
+// src/middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+
+  // Protect /admin routes
+  if (path.startsWith('/admin') && path !== '/admin/login') {
+    const adminToken = request.cookies.get('admin_token')?.value;
+    
+    if (!adminToken) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/admin/:path*',
+};
+```
+
+### Permissions (RBAC)
+
+```typescript
+// src/lib/permissions.ts
+export function hasPermission(
+  userRole: Role,
+  resource: string,
+  action: 'create' | 'read' | 'update' | 'delete'
+): boolean {
+  const permissions = ROLE_PERMISSIONS[userRole];
+  
+  if (userRole === Role.ADMIN) {
+    return true; // Admin has all permissions
+  }
+  
+  const resourcePermission = permissions.find(p => p.resource === resource);
+  return resourcePermission?.actions.includes(action) || false;
+}
 ```
 
 ---
 
 ## 🚀 DÉPLOIEMENT
 
-### Vercel (Recommandé)
+### Vercel (Production)
 
+**1. Connexion Vercel CLI**
 ```bash
-# 1. Installer Vercel CLI
 npm i -g vercel
-
-# 2. Login
 vercel login
+```
 
-# 3. Deploy
+**2. Lier le projet**
+```bash
+vercel link
+```
+
+**3. Configurer les variables d'environnement**
+```bash
+vercel env add DATABASE_URL
+vercel env add JWT_SECRET
+vercel env add CLOUDINARY_API_SECRET
+# ... autres variables
+```
+
+**4. Déployer**
+```bash
+# Preview
 vercel
 
-# 4. Production
+# Production
 vercel --prod
 ```
 
-**Configuration** :
-- Build Command : `npm run build`
-- Output Directory : `.next`
-- Install Command : `npm install`
+### Configuration Next.js
 
-### Variables d'Environnement Vercel
+```javascript
+// next.config.mjs
+const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
+  images: {
+    domains: ['images.unsplash.com', 'res.cloudinary.com'],
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+};
 
-Dashboard → Settings → Environment Variables
-
+export default nextConfig;
 ```
-OPENAI_API_KEY=sk-...
-DATABASE_URL=postgres://...
-NEXTAUTH_SECRET=...
+
+### Build Optimization
+
+**Force Dynamic Rendering (éviter errors build) :**
+```typescript
+// Dans les pages qui utilisent SSR
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 ```
-
-### Autres Plateformes
-
-- **Netlify** : Supporte Next.js
-- **Railway** : Deploy facile
-- **AWS Amplify** : Infrastructure AWS
-- **DigitalOcean App Platform**
 
 ---
 
 ## 🧪 TESTS
 
-### Jest + Testing Library
+### Tests Unitaires (Jest)
 
-**Installation** :
-```bash
-npm install -D jest @testing-library/react @testing-library/jest-dom
-npm install -D @types/jest
-```
-
-**jest.config.js** :
-```javascript
-module.exports = {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
-};
-```
-
-**Exemple Test** :
 ```typescript
-// PropertyCard.test.tsx
-import { render, screen } from '@testing-library/react';
-import PropertyCard from '@/components/PropertyCard';
+// __tests__/permissions.test.ts
+import { hasPermission, Role } from '@/lib/permissions';
 
-test('renders property card', () => {
-  const property = { id: '1', price: 50000000, address: 'Dakar' };
-  render(<PropertyCard property={property} />);
-  
-  expect(screen.getByText('50000000 FCFA')).toBeInTheDocument();
+describe('Permissions', () => {
+  test('USER can read properties', () => {
+    expect(hasPermission(Role.USER, 'properties', 'read')).toBe(true);
+  });
+
+  test('USER cannot create properties', () => {
+    expect(hasPermission(Role.USER, 'properties', 'create')).toBe(false);
+  });
+
+  test('ADMIN has all permissions', () => {
+    expect(hasPermission(Role.ADMIN, 'properties', 'delete')).toBe(true);
+  });
 });
 ```
 
-### E2E avec Playwright
-
+**Lancer les tests :**
 ```bash
-npm install -D @playwright/test
-npx playwright install
+npm test
 ```
 
-**Exemple E2E** :
+### Tests E2E (Playwright)
+
 ```typescript
-// e2e/search.spec.ts
+// tests/search.spec.ts
 import { test, expect } from '@playwright/test';
 
-test('search for properties', async ({ page }) => {
-  await page.goto('http://localhost:3001/search');
-  await page.fill('input[placeholder*="Adresse"]', 'Dakar');
+test('Search properties', async ({ page }) => {
+  await page.goto('http://localhost:3000/search');
+  
+  await page.fill('input[placeholder*="localisation"]', 'Dakar');
   await page.click('button:has-text("Rechercher")');
   
-  await expect(page.locator('.property-card')).toHaveCount(greaterThan(0));
+  await expect(page.locator('.property-card')).toHaveCount(6);
 });
 ```
 
 ---
 
-## ⚡ PERFORMANCE
+## 🔧 MAINTENANCE
 
-### Optimisations
+### Logs & Monitoring
 
-1. **Dynamic Imports**
-   ```typescript
-   const Map = dynamic(() => import('@/components/map/Map'), { ssr: false });
-   ```
+**Console logs (développement) :**
+```typescript
+console.log('[API] Properties fetched:', properties.length);
+console.error('[ERROR] Database connection failed:', error);
+```
 
-2. **Image Optimization**
-   ```typescript
-   import Image from 'next/image';
-   
-   <Image src={property.imageUrl} width={400} height={300} alt="..." />
-   ```
+**Production (Vercel) :**
+- Logs accessibles dans Vercel Dashboard
+- Monitoring des erreurs runtime
+- Analytics de performance
 
-3. **Lazy Loading**
-   - Suspense boundaries
-   - Loading states
+### Backup Base de Données
 
-4. **Code Splitting**
-   - Automatic avec Next.js
-   - Route-based splitting
+**MongoDB Atlas (Automatique) :**
+- Backups quotidiens activés
+- Rétention 7 jours
+- Point-in-time recovery disponible
 
-### Lighthouse Score Target
+**Manuel via API :**
+```bash
+curl -X POST https://zillow-clone-five.vercel.app/api/admin/backup \
+  -H "Cookie: admin_token=YOUR_TOKEN"
+```
 
-- Performance : **90+**
-- Accessibility : **95+**
-- Best Practices : **95+**
-- SEO : **100**
+### Mise à Jour Dependencies
+
+```bash
+# Vérifier les mises à jour
+npm outdated
+
+# Mettre à jour (patch & minor)
+npm update
+
+# Mise à jour majeure (avec précaution)
+npm install next@latest react@latest react-dom@latest
+```
 
 ---
 
-## 🔒 SÉCURITÉ
+## 📊 PERFORMANCE
 
-### Bonnes Pratiques
+### Optimisations Appliquées
 
-1. **Environment Variables** : Jamais commit `.env`
-2. **HTTPS Only** en production
-3. **CORS** : Configurer les origins autorisées
-4. **Rate Limiting** : Sur les API routes
-5. **Input Sanitization** : Toujours valider
-6. **SQL Injection** : Utiliser Prisma (parameterized queries)
-7. **XSS Protection** : React échappe automatiquement
+1. **Image Optimization** : Next.js Image component
+2. **Code Splitting** : Automatic avec Next.js
+3. **Lazy Loading** : dynamic() pour composants lourds
+4. **Caching** : Prisma query caching
+5. **CDN** : Vercel Edge Network
 
-### Headers de Sécurité
+### Métriques Cibles
 
-**next.config.mjs** :
-```javascript
-async headers() {
-  return [
-    {
-      source: '/:path*',
-      headers: [
-        { key: 'X-DNS-Prefetch-Control', value: 'on' },
-        { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-        { key: 'X-Content-Type-Options', value: 'nosniff' },
-        { key: 'Referrer-Policy', value: 'origin-when-cross-origin' },
-      ],
-    },
-  ];
-},
+- **LCP** (Largest Contentful Paint) : < 2.5s
+- **FID** (First Input Delay) : < 100ms
+- **CLS** (Cumulative Layout Shift) : < 0.1
+
+---
+
+## 🐛 DEBUGGING
+
+### Outils
+
+**1. Next.js DevTools**
+```bash
+npm run dev
+# Ouvrir http://localhost:3000
+# React DevTools dans Chrome
+```
+
+**2. Prisma Studio**
+```bash
+npx prisma studio
+# Interface graphique pour la BDD
+```
+
+**3. Logs API**
+```typescript
+// Ajoutez dans les API routes
+console.log('[DEBUG] Request body:', await request.json());
 ```
 
 ---
 
 ## 📚 RESSOURCES
 
-### Documentation Officielle
-
-- Next.js : https://nextjs.org/docs
-- React : https://react.dev
-- TypeScript : https://typescriptlang.org/docs
-- Leaflet : https://leafletjs.com
-- Prisma : https://prisma.io/docs
-
-### Communauté
-
-- GitHub : https://github.com/diwaan-platform
-- Discord : discord.gg/diwaan
-- Forum : forum.diwaan.sn
+- **Next.js Docs** : https://nextjs.org/docs
+- **Prisma Docs** : https://www.prisma.io/docs
+- **MongoDB Atlas** : https://www.mongodb.com/docs/atlas
+- **Vercel Docs** : https://vercel.com/docs
 
 ---
 
-**© 2025 Diwaan Group - Documentation Technique**
-
-*Dernière mise à jour : 10/12/2025*
+**© 2025 Diwaan Platform - Documentation Technique**  
+Version 1.0.0 | Dernière mise à jour : 15 Décembre 2025

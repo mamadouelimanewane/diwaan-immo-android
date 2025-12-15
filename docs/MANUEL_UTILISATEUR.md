@@ -1,548 +1,493 @@
-# 📖 MANUEL UTILISATEUR - DIWAAN
-## Guide Complet pour les Utilisateurs
+# 📖 MANUEL UTILISATEUR - DIWAAN PLATFORM
+**Plateforme Immobilière du Sénégal**
 
-**Version** : 1.0.0  
-**Date** : 10 Décembre 2025  
-**Application** : Diwaan - Plateforme Immobilière
+Version 1.0.0 | Décembre 2025
 
 ---
 
-## 📑 TABLE DES MATIÈRES
+## 📋 TABLE DES MATIÈRES
 
 1. [Introduction](#introduction)
-2. [Démarrage Rapide](#démarrage-rapide)
-3. [Création de Compte](#création-de-compte)
-4. [Recherche de Propriétés](#recherche-de-propriétés)
-5. [Gestion des Favoris](#gestion-des-favoris)
-6. [Location](#location)
-7. [Vente](#vente)
-8. [Prêts Immobiliers](#prêts-immobiliers)
-9. [Contacter un Agent](#contacter-un-agent)
-10. [Mon Tableau de Bord](#mon-tableau-de-bord)
-11. [FAQ](#faq)
+2. [Premiers Pas](#premiers-pas)
+3. [Rechercher une Propriété](#rechercher-une-propriete)
+4. [Gérer son Compte](#gerer-son-compte)
+5. [Contacter un Agent](#contacter-un-agent)
+6. [Publier une Annonce (Agents)](#publier-une-annonce)
+7. [Utiliser l'Assistant IA](#utiliser-lassistant-ia)
+8. [FAQ](#faq)
 
 ---
 
-## 🌟 INTRODUCTION
+## 🎯 INTRODUCTION
 
 ### Qu'est-ce que Diwaan ?
 
-**Diwaan** est la plateforme immobilière leader au Sénégal qui vous permet de :
-- 🏠 **Acheter** votre maison de rêve
-- 🔑 **Louer** un appartement ou une villa
-- 💰 **Vendre** votre propriété facilement
-- 💳 **Obtenir** un prêt immobilier
-- 👨‍💼 **Contacter** les meilleurs agents
+Diwaan est la **première plateforme immobilière intelligente du Sénégal**, connectant acheteurs, vendeurs, locataires et agents immobiliers dans un écosystème digital moderne.
 
 ### Fonctionnalités Principales
 
-✅ Recherche avancée avec carte interactive  
-✅ Filtres intelligents (prix, type, localisation)  
-✅ Favoris synchronisés  
-✅ Estimations de prix IA  
-✅ Chat avec agents  
-✅ Visites virtuelles 360°  
+- 🔍 **Recherche Avancée** : Trouvez votre propriété idéale avec des filtres puissants
+- 🗺️ **Carte Interactive** : Visualisez les biens sur une carte
+- 🤖 **Assistant IA** : DiwaanBot répond à vos questions juridiques
+- 💰 **Simulateurs** : Calculez votre prêt immobilier
+- 📱 **Multi-plateforme** : Accessible sur ordinateur, tablette et mobile
+- 🌐 **Multilingue** : Français et Wolof disponibles
 
 ---
 
-## 🚀 DÉMARRAGE RAPIDE
+## 🚀 PREMIERS PAS
 
-### Accès à la Plateforme
+### 1.1 Créer un Compte
 
-1. **URL** : https://diwaan.sn (ou http://localhost:3001)
-2. Cliquez sur **"Se connecter"** en haut à droite
-3. Ou parcourez sans compte pour voir les annonces
+**Étape 1 : Accéder à l'inscription**
+- Allez sur : https://zillow-clone-five.vercel.app
+- Cliquez sur **"S'inscrire"** en haut à droite
 
-### Navigation Rapide
+**Étape 2 : Remplir le formulaire**
+```
+Nom complet : Votre nom
+Email : votre.email@exemple.com
+Mot de passe : Minimum 6 caractères
+Je suis : 
+  ☐ À la recherche d'une location/achat (USER)
+  ☐ Propriétaire (je veux vendre/louer) (OWNER)
+  ☐ Agent Immobilier (AGENT)
+```
 
-| Menu | Description |
-|------|-------------|
-| **Acheter** | Rechercher des biens à vendre |
-| **Louer** | Trouver une location |
-| **Vendre** | Mettre votre bien en vente |
-| **Agents** | Trouver un professionnel |
-| **Prêts** | Simuler votre capacité d'emprunt |
+**Étape 3 : Valider**
+- Cliquez sur **"S'inscrire"**
+- Vérifiez votre email (si activé)
+- Connectez-vous avec vos identifiants
 
----
+### 1.2 Types de Comptes
 
-## 👤 CRÉATION DE COMPTE
-
-### Inscription Gratuite
-
-1. Cliquez sur **"Se connecter"** → **"Créer un compte"**
-2. Remplissez le formulaire :
-   - Nom complet
-   - Email
-   - Mot de passe (min. 8 caractères)
-   - Téléphone
-3. Validez votre email
-4. **C'est fait !** 🎉
-
-### Types de Comptes
-
-| Type | Fonctionnalités | Prix |
-|------|----------------|------|
-| **Utilisateur** | Recherche, Favoris, Alertes | Gratuit |
-| **Propriétaire** | + Publier des annonces | Gratuit |
-| **Agent** | + Dashboard pro, Statistiques | 25.000 FCFA/mois |
-| **Agence** | + Multi-agents, Branding | 75.000 FCFA/mois |
+| Type | Description | Fonctionnalités |
+|------|-------------|-----------------|
+| **USER** | Utilisateur standard | Recherche, favoris, contact agents |
+| **OWNER** | Propriétaire | USER + Publier annonces personnelles |
+| **AGENT** | Agent immobilier | OWNER + Gestion clients, statistiques |
 
 ---
 
-## 🔍 RECHERCHE DE PROPRIÉTÉS
+## 🔍 RECHERCHER UNE PROPRIÉTÉ
 
-### Recherche Simple
+### 2.1 Recherche Simple
 
-1. Sur la page d'accueil, entrez :
-   - **Localisation** : "Dakar Plateau"
-   - Cliquez sur 🔍 **Rechercher**
+**Page d'accueil :**
+1. Entrez une **localisation** (ex: "Dakar", "Almadies", "VDN")
+2. Sélectionnez le **type de transaction** :
+   - Acheter 🏠
+   - Louer 🏘️
+3. Cliquez sur **"Rechercher"**
 
-### Recherche Avancée
+### 2.2 Filtres Avancés
 
-**Page** : `/search`
+**Panneau de filtres (côté gauche) :**
 
-#### Filtres Disponibles
+**Prix :**
+- Minimum : 50 000 FCFA
+- Maximum : 500 000 000 FCFA
+- Curseur ou saisie manuelle
 
-1. **Prix**
-   - Minimum : 5M FCFA
-   - Maximum : 500M FCFA
-   - Ou laisser vide
+**Type de Bien :**
+- ☐ Maison
+- ☐ Appartement
+- ☐ Terrain
+- ☐ Bureau
+- ☐ Commerce
 
-2. **Type de Bien**
-   - ☐ Maison
-   - ☐ Appartement
-   - ☐ Villa
-   - ☐ Terrain
-   - ☐ Bureau
+**Caractéristiques :**
+- Chambres : 1 à 10+
+- Salles de bain : 1 à 5+
+- Surface : 20m² à 1000m²+
 
-3. **Chambres**
-   - Studio
-   - 1 chambre
-   - 2 chambres
-   - 3+ chambres
+**Commodités :**
+- ☐ Piscine
+- ☐ Jardin
+- ☐ Parking
+- ☐ Sécurité 24/7
+- ☐ Climatisation
 
-4. **Équipements**
-   - Piscine
-   - Jardin
-   - Parking
-   - Climatisation
-   - Gardien
+### 2.3 Vue Carte
 
-#### Carte Interactive
+**Activer la carte :**
+1. Cliquez sur l'icône 🗺️ **"Carte"**
+2. Visualisez les propriétés par zone
+3. Cliquez sur un marqueur pour voir les détails
+4. Zoomez/Dézoomez pour explorer
 
-- **Zoom** : Molette ou +/-
-- **Déplacer** : Cliquer-glisser
-- **Marker** : Cliquez pour voir le bien
-- **Cluster** : Nombre de biens dans une zone
+### 2.4 Sauvegarder des Favoris
 
-#### Tri des Résultats
-
-- Plus récent
-- Prix croissant
-- Prix décroissant
-- Popularité
-
----
-
-## ❤️ GESTION DES FAVORIS
-
-### Ajouter aux Favoris
-
-1. Sur une annonce, cliquez sur l'icône **❤️**
-2. Le cœur devient **rouge** = favori ajouté
-3. Accessible depuis votre **Dashboard**
-
-### Voir Mes Favoris
-
-1. Connectez-vous
-2. Allez sur **Dashboard** → **Favoris**
-3. Vous voyez toutes vos propriétés sauvegardées
-
-### Supprimer un Favori
-
-- Recliquez sur **❤️** (devient gris)
-- Ou → Dashboard → Favoris → **🗑️ Supprimer**
-
-### Partage de Favoris
-
-- Cliquez sur **📤 Partager**
-- Envoyez le lien à vos amis/famille
-- Recevez leurs avis
+**Ajouter aux favoris :**
+1. Sur une fiche propriété, cliquez sur ❤️
+2. Le bien est ajouté à vos favoris
+3. Accédez à vos favoris via **"Mon Compte"** > **"Favoris"**
 
 ---
 
-## 🏘️ LOCATION
+## 🏠 DÉTAILS D'UNE PROPRIÉTÉ
 
-### Trouver une Location
+### 3.1 Informations Affichées
 
-**Page** : `/rent`
+**Section Principale :**
+- 📸 **Galerie Photos** (défilement, zoom)
+- 💰 **Prix** (vente ou location/mois)
+- 📍 **Adresse complète**
+- 📏 **Surface, chambres, salles de bain**
 
-1. Parcourez les annonces
-2. Filtrez par :
-   - Type (Appartement, Studio, Villa)
-   - Prix mensuel
-   - Quartier
+**Description :**
+- Texte détaillé du propriétaire/agent
+- Points forts
+- Équipements inclus
 
-### Estimer votre Loyer
+**Localisation :**
+- Carte interactive
+- Quartier
+- Points d'intérêt à proximité
 
-**Page** : `/rent/price-my-rental`
+### 3.2 Contacter le Propriétaire
 
-1. Entrez l'adresse de votre bien
-2. Type, surface, équipements
-3. **Diwaan IA** calcule le loyer optimal
-4. Recevez un rapport détaillé
+**Formulaire de contact :**
+```
+Nom : [Votre nom]
+Email : [Votre email]
+Téléphone : [Votre téléphone]
+Message : [Votre demande]
 
-### Rental Manager (Propriétaires)
+☐ Je souhaite visiter la propriété
+☐ Je souhaite plus d'informations
 
-**Page** : `/rent/manager`
+[Envoyer la demande]
+```
 
-Gérez vos locations :
-- 📋 **Listings** : Vos annonces
-- 📥 **Applications** : Demandes de locataires
-- 💬 **Inbox** : Messages
-- 💰 **Payments** : Suivi des paiements
-- 📄 **Leases** : Contrats de bail
+### 3.3 Visite Virtuelle (si disponible)
 
----
-
-## 💼 VENTE
-
-### Vendre avec un Agent
-
-**Page** : `/sell`
-
-1. Cliquez sur **"Vendre avec un Agent"**
-2. Remplissez le formulaire
-3. Un agent vous contacte sous 24h
-4. Visite d'évaluation gratuite
-5. Mise en ligne de l'annonce
-6. Gestion des visites
-7. Négociation et signature
-
-### Vendre par vous-même (FSBO)
-
-**Page** : `/sell/fsbo`
-
-**FSBO** = For Sale By Owner
-
-1. Créez votre annonce
-2. Uploadez 10+ photos HD
-3. Décrivez le bien en détail
-4. Fixez votre prix
-5. Publiez (gratuit ou Premium)
-6. Gérez les contacts directement
-
-### Estimation de Prix
-
-**Page** : `/sell/valuation`
-
-**Diwaan Estimate** utilise l'IA pour :
-- Analyser le marché local
-- Comparer avec 1000+ ventes récentes
-- Estimer le prix optimal
-- Suggérer le meilleur moment pour vendre
-
-**Précision** : ±5% du prix de vente final
+1. Cliquez sur **"🎬 Visite Virtuelle"**
+2. Explorez en 360° (souris ou tactile)
+3. Naviguez entre les pièces
 
 ---
 
-## 💳 PRÊTS IMMOBILIERS
+## 👤 GÉRER SON COMPTE
 
-### Hub Prêts
+### 4.1 Mon Profil
 
-**Page** : `/loans`
+**Accès :**
+- Cliquez sur votre **avatar** en haut à droite
+- Sélectionnez **"Mon Profil"**
 
-#### Services Disponibles
+**Informations modifiables :**
+- Photo de profil
+- Nom complet
+- Email
+- Téléphone
+- Adresse
+- Bio (pour agents)
 
-1. **Calculateur de Capacité**
-   - Revenus mensuels
-   - Dettes actuelles
-   - → Montant empruntable
+### 4.2 Mes Favoris
 
-2. **Pré-qualification**
-   - Formulaire rapide (3 min)
-   - Réponse en 24h
-   - Sans impact crédit
+**Gérer vos favoris :**
+- **Voir** : Liste complète de vos propriétés sauvegardées
+- **Supprimer** : Cliquez sur ❌ pour retirer
+- **Partager** : Envoyez le lien à un ami
 
-3. **Taux en Direct**
-   - Comparez 15+ banques
-   - Taux actualisés quotidiennement
-   - Simulation personnalisée
+### 4.3 Mes Demandes
 
-4. **Assistance Expert**
-   - Courtier dédié
-   - Montage de dossier
-   - Négociation banques
-
-### Calculer votre Capacité
-
-**Page** : `/loans/buy-ability`
-
-1. Salaire net mensuel : **500.000 FCFA**
-2. Autres revenus : **100.000 FCFA**
-3. Dettes mensuelles : **50.000 FCFA**
-4. Apport personnel : **10.000.000 FCFA**
-
-**Résultat** :
-- Capacité d'emprunt : **45M FCFA**
-- Budget total : **55M FCFA**
-- Mensualité : **300.000 FCFA** (sur 20 ans)
-
----
-
-## 👨‍💼 CONTACTER UN AGENT
-
-### Trouver un Agent
-
-**Page** : `/agents`
-
-1. **Recherchez** par ville ou nom
-2. Consultez les **profils** :
-   - Note moyenne ⭐
-   - Nombre de ventes
-   - Avis clients
-   - Spécialités
-
-3. Cliquez sur **"Contacter"**
-4. Envoyez votre message
-5. L'agent vous répond sous 2h
-
-### Agents Vérifiés
-
-Tous les agents Diwaan sont :
-- ✅ Vérifiés (ID + Licence)
-- ✅ Assurés professionnellement
-- ✅ Notés par les clients
-- ✅ Formés aux standards Diwaan
-
----
-
-## 📊 MON TABLEAU DE BORD
-
-### Accès Dashboard
-
-**Page** : `/dashboard`
-
-1. Connectez-vous
-2. Cliquez sur votre **avatar** → **Dashboard**
-
-### Sections Disponibles
-
-#### 📌 Favoris
-- Toutes vos propriétés sauvegardées
-- Alertes de baisse de prix
-- Nouveautés similaires
-
-#### 🔔 Alertes
-- Nouvelles annonces dans vos critères
-- Changements de prix
-- Portes ouvertes
-
-#### 💬 Messages
-- Conversations avec agents
-- Questions sur annonces
+**Suivi des demandes :**
+- Toutes vos demandes de renseignements
+- Statut : En attente ⏳, Répondu ✅, Clôturée ✔️
 - Historique complet
 
-#### 📋 Mes Annonces (Si Propriétaire)
-- Annonces actives
-- Statistiques de vues
-- Demandes de visite
-- Modifier/Supprimer
+### 4.4 Paramètres
 
-#### 📈 Historique
-- Recherches récentes
-- Annonces consultées
-- Comparaisons sauvegardées
+**Notifications :**
+- ☐ Email : Nouvelles annonces correspondant à ma recherche
+- ☐ SMS : Rappels de visites
+- ☐ Push : Alertes en temps réel
+
+**Confidentialité :**
+- ☐ Profil public
+- ☐ Partager mon historique de recherche (amélioration IA)
 
 ---
 
-## ❓ FAQ
+## 🏢 CONTACTER UN AGENT
 
-### Questions Fréquentes
+### 5.1 Trouver un Agent
 
-#### C'est gratuit ?
+**Page Agents :**
+- Allez sur **"Trouver un Agent"**
+- Filtrez par :
+  - Zone géographique
+  - Spécialité (vente, location, luxe)
+  - Note ⭐
 
-**Oui !** Diwaan est gratuit pour :
-- Rechercher des biens
-- Contacter des agents
-- Sauvegarder des favoris
-- Obtenir des estimations
+**Profil Agent :**
+- Photo et bio
+- Annonces actives
+- Avis clients
+- Coordonnées
 
-**Payant** uniquement pour :
-- Annonces Premium (mise en avant)
-- Compte Agent Pro
-- Services de courtage avancés
+### 5.2 Prendre Rendez-vous
 
-#### Comment puis-je publier une annonce ?
+**Formulaire :**
+```
+Type de rendez-vous :
+  ☐ Visite propriété
+  ☐ Consultation gratuite
+  ☐ Estimation bien
 
-1. Créez un compte
-2. Dashboard → **"+ Nouvelle Annonce"**
-3. Remplissez le formulaire
-4. Uploadez photos (min. 5)
-5. Publiez (gratuit) ou boostez (payant)
+Date souhaitée : [Calendrier]
+Heure : [09:00 - 18:00]
+Message : [Précisions]
 
-#### Combien de temps reste une annonce en ligne ?
+[Confirmer le rendez-vous]
+```
 
-- **Gratuit** : 90 jours
-- **Premium** : 365 jours
-- Renouvellement automatique possible
+---
 
-#### Je n'ai pas reçu l'email de confirmation
+## 📝 PUBLIER UNE ANNONCE (Propriétaires & Agents)
 
-1. Vérifiez vos **spams**
-2. Dashboard → Paramètres → **"Renvoyer l'email"**
-3. Si problème persiste : support@diwaan.sn
+### 6.1 Accès au Formulaire
 
-#### Comment modifier mon profil ?
+**Navigation :**
+- Cliquez sur **"Vendre/Louer"**
+- Sélectionnez **"Publier une annonce"**
+- Ou : Menu compte > **"Mes Annonces"** > **"+ Nouvelle"**
 
-1. Cliquez sur votre **avatar**
-2. **"Paramètres"**
-3. Modifiez vos informations
-4. **"Enregistrer"**
+### 6.2 Remplir le Formulaire
 
-#### Les estimations IA sont-elles fiables ?
+**Informations Obligatoires :**
 
-Nos estimations ont une **précision de 93%** (±5% du prix réel).
+**Étape 1 : Type de Transaction**
+- ☐ Vente
+- ☐ Location
 
-Basées sur :
-- 50.000+ ventes historiques
-- Données marché temps réel
-- Analyse quartier par quartier
+**Étape 2 : Type de Bien**
+- ☐ Maison
+- ☐ Appartement
+- ☐ Terrain
+- ☐ Bureau
+- ☐ Commerce
 
-**Recommandation** : Consultez aussi un agent pour une expertise humaine.
+**Étape 3 : Détails**
+```
+Titre : [Ex: "Belle villa F4 avec piscine à Almadies"]
+Description : [Minimum 100 caractères]
+Prix : [FCFA - vente ou loyer/mois]
+Surface : [m²]
+Chambres : [Nombre]
+Salles de bain : [Nombre]
+```
 
-#### Comment signaler une annonce frauduleuse ?
+**Étape 4 : Localisation**
+```
+Adresse : [Rue, numéro]
+Ville : [Dakar, Thiès, etc.]
+Quartier : [Almadies, Plateau, etc.]
+Code postal : [Optionnel]
+```
 
-1. Sur l'annonce → **⚠️ Signaler**
-2. Sélectionnez la raison
-3. Notre équipe vérifie sous 24h
-4. Annonce supprimée si frauduleuse
+**Étape 5 : Équipements**
+- ☐ Piscine
+- ☐ Jardin
+- ☐ Parking (nombre de places)
+- ☐ Sécurité 24/7
+- ☐ Climatisation
+- ☐ Meublé
 
-#### Puis-je négocier le prix ?
+**Étape 6 : Photos**
+- **Minimum** : 3 photos
+- **Recommandé** : 8-12 photos
+- Formats acceptés : JPG, PNG
+- Taille max : 5 MB par image
+- Ordre : Glissez-déposez pour réorganiser
 
-**Oui !** 
-- Contactez l'agent/propriétaire
-- Faites une offre via la messagerie
-- La plupart acceptent -5 à -10%
+### 6.3 Publier et Gérer
 
-#### Diwaan prend-il une commission ?
+**Après publication :**
+- ✅ **Validé** : Visible immédiatement (ou après validation admin)
+- 📧 Vous recevez les demandes par email
+- 📊 Consultez les statistiques (vues, contacts)
 
-**Non** pour les acheteurs/locataires.
+**Modifier une annonce :**
+1. **Mes Annonces** > Cliquez sur l'annonce
+2. **Modifier** (icône ✏️)
+3. Changez les informations
+4. **Enregistrer**
 
-**Oui** pour les vendeurs :
-- Vente avec agent notre réseau : 3% du prix de vente
-- FSBO (vous gérez) : 0% (gratuit)
+**Supprimer une annonce :**
+1. **Mes Annonces** > Annonce
+2. **Supprimer** (icône 🗑️)
+3. Confirmation
+
+---
+
+## 🤖 UTILISER L'ASSISTANT IA (DiwaanBot)
+
+### 7.1 Accéder à DiwaanBot
+
+**Méthodes :**
+- Icône chat 💬 en bas à droite (toutes les pages)
+- Page dédiée : **"Assistant Juridique IA"**
+
+### 7.2 Poser une Question
+
+**Exemples de questions :**
+- "Quels sont les frais de notaire au Sénégal ?"
+- "Comment calculer mes droits d'enregistrement ?"
+- "Quelles taxes pour une location ?"
+- "Procédure d'achat d'un terrain ?"
+
+**Réponse :**
+- Texte structuré
+- Sources légales citées
+- Liens vers articles OHADA si applicable
+
+### 7.3 Langues Disponibles
+
+- 🇫🇷 **Français**
+- **Wolof** (à venir)
+
+---
+
+## 💰 SIMULATEURS FINANCIERS
+
+### 8.1 Simulateur de Prêt
+
+**Accès :** Menu **"Prêts"** > **"Simulateur"**
+
+**Informations à saisir :**
+```
+Prix du bien : [FCFA]
+Apport personnel : [FCFA ou %]
+Durée : [10 à 25 ans]
+Taux d'intérêt : [5.5% à 7.5%]
+
+[Calculer]
+```
+
+**Résultat :**
+- Mensualité : **XXX XXX FCFA/mois**
+- Coût total du crédit
+- Tableau d'amortissement
+
+### 8.2 Capacité d'Emprunt
+
+**Saisir :**
+```
+Revenus mensuels nets : [FCFA]
+Charges mensuelles : [FCFA]
+Durée souhaitée : [ans]
+
+[Calculer ma capacité]
+```
+
+**Résultat :**
+- Montant empruntable : **XXX XXX FCFA**
+- Prix de bien accessible
+
+---
+
+## 📚 GUIDES IMMOBILIERS
+
+### 9.1 Guide de l'Acheteur
+
+**Étapes clés :**
+1. Définir son projet
+2. Obtenir un financement
+3. Rechercher le bien
+4. Faire une offre
+5. Signer chez le notaire
+6. Emménager
+
+**Délais moyens :** 2 à 6 mois
+
+### 9.2 Guide du Vendeur
+
+**Étapes clés :**
+1. Estimation du bien
+2. Préparer les documents (TF, quitus fiscal)
+3. Publier l'annonce
+4. Organiser les visites
+5. Négocier
+6. Signature chez notaire
+
+**Frais à prévoir :** ~2-3% (commission agent + frais)
+
+### 9.3 Guide Juridique
+
+**Documents essentiels Sénégal :**
+- **Titre Foncier (TF)** : Preuve de propriété
+- **Quitus Fiscal** : Apurement taxes
+- **Certificat de Non-Gage** (si véhicule inclus)
+- **Permis de Construire** (si construction récente)
+
+---
+
+## ❓ FAQ (FOIRE AUX QUESTIONS)
+
+### Q1 : L'inscription est-elle gratuite ?
+**Réponse :** Oui, l'inscription et l'utilisation de Diwaan sont 100% gratuites pour les particuliers.
+
+### Q2 : Comment publier une annonce ?
+**Réponse :** Créez un compte OWNER ou AGENT, puis cliquez sur "Publier une annonce" dans votre tableau de bord.
+
+### Q3 : Puis-je modifier mon annonce après publication ?
+**Réponse :** Oui, à tout moment via "Mes Annonces" > "Modifier".
+
+### Q4 : Les agents payent-ils pour publier ?
+**Réponse :** Les agents peuvent publier gratuitement. Des offres premium avec visibilité accrue sont disponibles.
+
+### Q5 : Comment contacter le support ?
+**Réponse :** Email : support@diwaan.sn ou utilisez le formulaire de contact.
+
+### Q6 : Mes données sont-elles sécurisées ?
+**Réponse :** Oui, nous utilisons un chiffrement SSL et ne partageons jamais vos données personnelles.
+
+### Q7 : Puis-je chercher sans compte ?
+**Réponse :** Oui, la recherche est accessible à tous. Un compte est requis pour sauvegarder des favoris.
+
+### Q8 : Comment changer ma langue ?
+**Réponse :** Cliquez sur le sélecteur de langue (🇫🇷/Wolof) en haut à droite.
+
+### Q9 : DiwaanBot est-il un vrai avocat ?
+**Réponse :** Non, c'est un assistant IA. Pour des conseils juridiques officiels, consultez un notaire.
+
+### Q10 : Puis-je annuler ma demande de visite ?
+**Réponse :** Oui, via "Mes Demandes" > Sélectionner > "Annuler".
 
 ---
 
 ## 📞 SUPPORT & CONTACT
 
-### Besoin d'Aide ?
+**Email :** support@diwaan.sn  
+**Téléphone :** +221 XX XXX XX XX  
+**Horaires :** Lundi-Vendredi 8h-18h, Samedi 9h-13h
 
-- 📧 **Email** : support@diwaan.sn
-- 📱 **Téléphone** : +221 33 123 45 67
-- 💬 **Chat** : Widget en bas à droite
-- 🕐 **Horaires** : Lun-Ven 8h-19h, Sam 9h-14h
-
-### Réseaux Sociaux
-
-- 📘 Facebook : /DiwaanSenegal
-- 📸 Instagram : @diwaan_sn
-- 🐦 Twitter : @Diwaan_SN
-- 📹 YouTube : Diwaan Sénégal
+**Réseaux sociaux :**
+- Facebook : /DiwaanSenegal
+- Instagram : @diwaan_sn
+- LinkedIn : Diwaan Platform
 
 ---
 
-## 🎓 TUTORIELS VIDÉO
+## 📄 ANNEXES
 
-**Chaîne YouTube** : youtube.com/DiwaanSenegal
+### Glossaire Immobilier
 
-1. 🎥 Comment rechercher un bien
-2. 🎥 Publier votre première annonce
-3. 🎥 Utiliser la carte interactive
-4. 🎥 Estimer le prix de votre maison
-5. 🎥 Trouver le bon agent
+- **TF (Titre Foncier)** : Document officiel prouvant la propriété
+- **DPE** : Diagnostic de Performance Énergétique
+- **VEFA** : Vente en l'État Futur d'Achèvement
+- **Quitus** : Certificat de règlement complet des impôts
 
----
+### Contacts Utiles Sénégal
 
-## 📱 APPLICATION MOBILE
-
-**Téléchargez Diwaan App**
-
-- 📱 **iOS** : App Store → "Diwaan"
-- 🤖 **Android** : Play Store → "Diwaan"
-
-**Fonctionnalités** :
-- Notifications push pour nouvelles annonces
-- Recherche vocale
-- Scan de QR code sur panneaux
-- Mode hors ligne
-- Réalité augmentée pour visualiser
+- **Conservation Foncière Dakar** : +221 33 XXX XX XX
+- **Ordre des Notaires** : +221 33 XXX XX XX
+- **Direction des Impôts** : +221 33 XXX XX XX
 
 ---
 
-## ✨ ASTUCES PRO
-
-### Maximiser vos Chances de Trouver
-
-1. **Activez les alertes** pour vos critères
-2. **Sauvegardez** plusieurs recherches
-3. **Soyez réactif** - les bonnes affaires partent vite
-4. **Utilisez la carte** pour découvrir des quartiers
-5. **Contactez plusieurs agents** pour comparer
-
-### Vendre Plus Vite
-
-1. **Photos professionnelles** (louez un photographe)
-2. **Visite virtuelle 360°**
-3. **Description détaillée et honnête**
-4. **Prix compétitif** (utilisez Diwaan Estimate)
-5. **Répondez vite** aux demandes
-6. **Soyez flexible** pour les visites
-
----
-
-## 🔒 SÉCURITÉ & CONFIDENTIALITÉ
-
-### Vos Données sont Protégées
-
-- 🔐 Cryptage SSL/TLS
-- 🛡️ Conformité RGPD
-- 🚫 Pas de vente de données
-- ✅ Vérification 2FA disponible
-
-### Conseils de Sécurité
-
-❌ **Ne jamais** :
-- Envoyer d'argent avant visite
-- Communiquer en dehors de Diwaan
-- Donner vos codes bancaires
-
-✅ **Toujours** :
-- Visiter le bien en personne
-- Vérifier identité du vendeur
-- Utiliser un notaire pour la transaction
-
----
-
-## 📈 MISES À JOUR
-
-**Dernière version** : 1.0.0 (10 Déc 2025)
-
-**Nouveautés** :
-- ✨ Nouveau nom : Diwaan
-- 🎨 Couleurs vives
-- 🚀  100% fonctionnel
-- 🤖 IA améliorée
-
-**À venir** :
-- Visites virtuelles VR
-- Blockchain pour titres fonciers
-- Paiement en crypto
-- Analyse prédictive quartiers
-
----
-
-**© 2025 Diwaan Group. Tous droits réservés.**
-
-*Ce manuel est mis à jour régulièrement. Dernière modification : 10/12/2025*
+**© 2025 Diwaan Platform - Tous droits réservés**  
+Version 1.0.0 | Dernière mise à jour : 15 Décembre 2025

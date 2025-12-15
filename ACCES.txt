@@ -1,0 +1,23 @@
+Test Utilisateur :
+Allez sur https://zillow-clone-five.vercel.app/register
+Inscrivez-vous (choisissez USER ou AGENT)
+Explorez les propriétés
+Test Admin :
+Allez sur https://zillow-clone-five.vercel.app/admin
+Connectez-vous : admin@diwaan.sn / admin123
+Testez le module Sécurité : /admin/security
+Créez une sauvegarde
+Consultez les audit logs
+Vérifiez la matrice de permissions
+LIENS RAPIDES
+👥 Version Publique
+https://zillow-clone-five.vercel.app
+
+🔐 Backoffice Admin
+https://zillow-clone-five.vercel.app/admin/login   
+Comment utiliser
+Accédez au backoffice : /admin/agents
+Connectez-vous avec le compte admin : admin@senrew.sn / password123
+Cliquez sur "✏️ Modifier" pour n'importe quel agent
+Modifiez les informations souhaitées
+Cliquez sur "Enregistrer"

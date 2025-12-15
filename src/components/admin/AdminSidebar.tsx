@@ -16,10 +16,18 @@ export default function AdminSidebar() {
             boxShadow: '4px 0 10px rgba(0,0,0,0.1)',
             zIndex: 1000
         }}>
-            {/* Logo Area */}
-            <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                <h1 style={{ fontSize: '24px', fontWeight: 'bold', letterSpacing: '1px' }}>Diwaan<span style={{ color: '#006AFF' }}>Admin</span></h1>
-                <p style={{ fontSize: '12px', opacity: 0.6, marginTop: '4px' }}>Backoffice de gestion</p>
+            {/* User Profile / Logout - NOW AT TOP */}
+            <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.1)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#006AFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>AD</div>
+                    <div>
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Administrateur</div>
+                        <div style={{ fontSize: '11px', opacity: 0.6 }}>Super Admin</div>
+                    </div>
+                </div>
+                <Link href="/" style={{ display: 'block', textAlign: 'center', fontSize: '13px', color: '#ccc', textDecoration: 'none', padding: '8px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px' }}>
+                    Retour au site
+                </Link>
             </div>
 
             {/* Navigation */}
@@ -67,18 +75,10 @@ export default function AdminSidebar() {
                 </ul>
             </nav>
 
-            {/* User Profile / Logout */}
-            <div style={{ padding: '24px', borderTop: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.1)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#006AFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>AD</div>
-                    <div>
-                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Administrateur</div>
-                        <div style={{ fontSize: '11px', opacity: 0.6 }}>Super Admin</div>
-                    </div>
-                </div>
-                <Link href="/" style={{ display: 'block', textAlign: 'center', fontSize: '13px', color: '#ccc', textDecoration: 'none', padding: '8px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '4px' }}>
-                    Retour au site
-                </Link>
+            {/* Logo Area - NOW AT BOTTOM */}
+            <div style={{ padding: '24px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 'bold', letterSpacing: '1px' }}>Diwaan<span style={{ color: '#006AFF' }}>Admin</span></h1>
+                <p style={{ fontSize: '12px', opacity: 0.6, marginTop: '4px' }}>Backoffice de gestion</p>
             </div>
         </div>
     );

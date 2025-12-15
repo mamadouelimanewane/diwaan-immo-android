@@ -69,16 +69,47 @@ function SearchContent() {
 
     useEffect(() => {
         let title = "Immobilier à vendre au Sénégal";
+        let newFilters = { ...filters };
+
         switch (filterParam) {
             case 'rent':
                 title = "Immobilier à louer";
-                // logic to switch transactionType could go here
+                newFilters.transactionType = 'RENT';
                 break;
-            // ... keep title logic
+            case 'new':
+                title = "Programmes neufs";
+                newFilters.transactionType = 'SALE';
+                // Could add a 'new' property filter here
+                break;
+            case 'coming_soon':
+                title = "Bientôt disponible";
+                newFilters.transactionType = 'SALE';
+                break;
+            case 'open':
+                title = "Portes ouvertes";
+                newFilters.transactionType = 'SALE';
+                break;
+            case 'foreclosure':
+                title = "Saisies immobilières";
+                newFilters.transactionType = 'SALE';
+                break;
+            case 'fsbo':
+                title = "Vente par propriétaire";
+                newFilters.transactionType = 'SALE';
+                break;
+            case 'sold':
+                title = "Vendus récemment";
+                newFilters.transactionType = 'SALE';
+                break;
+            default:
+                title = "Immobilier à vendre au Sénégal";
+                newFilters.transactionType = 'SALE';
         }
+
         setPageTitle(title);
+        setFilters(newFilters);
         fetchProperties();
-    }, [filterParam]); // Fetch on mount and param change.
+    }, [filterParam]);
 
     const toggleFilter = (filterName: string) => {
         setActiveFilter(activeFilter === filterName ? null : filterName);
