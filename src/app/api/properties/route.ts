@@ -170,8 +170,11 @@ export async function GET(request: NextRequest) {
     // Skip database during build phase (Vercel)
     const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
 
-    if (isBuildPhase) {
-        console.log('Build phase detected, using mock data');
+    // TEMPORAIRE: Forcer l'utilisation des données mock corrigées jusqu'à mise à jour DB
+    const useMockData = process.env.USE_MOCK_DATA === 'true' || true; // Force mock pour prix corrects
+
+    if (isBuildPhase || useMockData) {
+        console.log('Using mock data with corrected prices');
         return getMockProperties();
     }
 
