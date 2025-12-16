@@ -171,7 +171,7 @@ export async function GET(request: NextRequest) {
     const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
 
     // TEMPORAIRE: Forcer l'utilisation des données mock corrigées jusqu'à mise à jour DB
-    const useMockData = process.env.USE_MOCK_DATA === 'true' || true; // Force mock pour prix corrects
+    const useMockData = process.env.USE_MOCK_DATA === 'true' || false; // DB mise à jour avec prix corrects !
 
     if (isBuildPhase || useMockData) {
         console.log('Using mock data with corrected prices');
