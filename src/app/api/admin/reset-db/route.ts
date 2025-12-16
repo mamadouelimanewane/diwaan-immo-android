@@ -18,11 +18,30 @@ export async function POST(request: NextRequest) {
 
         console.log('🔄 Début de la réinitialisation de la BD...');
 
-        // Étape 1 : Supprimer TOUTES les anciennes propriétés
+        // Étape 1 : Trouver ou créer un utilisateur admin par défaut
+        let adminUser = await prisma.user.findFirst({
+            where: { role: 'ADMIN' }
+        });
+
+        if (!adminUser) {
+            // Créer un admin par défaut si n'existe pas
+            adminUser = await prisma.user.create({
+                data: {
+                    email: 'admin@diwaan.sn',
+                    password: '$2b$10$dummy', // Hash dummy
+                    name: 'Admin Diwaan',
+                    role: 'ADMIN',
+                    phone: '+221 77 000 00 00'
+                }
+            });
+            console.log('✅ Utilisateur admin créé');
+        }
+
+        // Étape 2 : Supprimer TOUTES les anciennes propriétés
         const deleted = await prisma.property.deleteMany({});
         console.log(`✅ ${deleted.count} propriétés supprimées`);
 
-        // Étape 2 : Créer les nouvelles propriétés avec prix corrects
+        // Étape 3 : Créer les nouvelles propriétés avec prix corrects
         const nouvelles = [
             // LOCATIONS - Prix réalistes (200K - 750K FCFA)
             {
@@ -166,10 +185,15 @@ export async function POST(request: NextRequest) {
             }
         ];
 
-        // Créer toutes les propriétés
+        // Créer toutes les propriétés avec l'admin comme propriétaire
         let created = 0;
         for (const prop of nouvelles) {
-            await prisma.property.create({ data: prop });
+            await prisma.property.create({
+                data: {
+                    ...prop,
+                    ownerId: adminUser.id  // Lier à l'utilisateur admin
+                }
+            });
             created++;
         }
 
