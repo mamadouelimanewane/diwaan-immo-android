@@ -1,5 +1,5 @@
 // Service Worker pour Diwaan Immo PWA
-const CACHE_NAME = 'diwaan-immo-v1';
+const CACHE_NAME = 'diwaan-immo-v2-prix-corriges'; // Version 2 avec prix corrigés
 const urlsToCache = [
     '/',
     '/search',
