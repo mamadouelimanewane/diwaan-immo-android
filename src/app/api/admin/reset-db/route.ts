@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     try {
         // Vérification de sécurité - token admin requis
         const authHeader = request.headers.get('authorization');
-        const adminToken = process.env.ADMIN_SECRET_TOKEN;
+        const adminToken = process.env.JETON_SECRET_ADMIN || process.env.ADMIN_SECRET_TOKEN;
 
         if (!authHeader || authHeader !== `Bearer ${adminToken}`) {
             return NextResponse.json({

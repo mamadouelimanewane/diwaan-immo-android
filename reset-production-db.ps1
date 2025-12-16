@@ -5,7 +5,7 @@ Write-Host "RESET BASE DE DONNEES PRODUCTION" -ForegroundColor Cyan
 Write-Host "=================================" -ForegroundColor Cyan
 Write-Host ""
 
-$PRODUCTION_URL = "https://zillow-clone-2hkkjw5tu-mamadou-dias-projects-979b1f4f.vercel.app"
+$PRODUCTION_URL = "https://zillow-clone-3nck5w4q7-mamadou-dias-projects-979b1f4f.vercel.app"
 $ADMIN_TOKEN = "diwaan-admin-2024-secure-token-789xyz"
 
 Write-Host "URL Production: $PRODUCTION_URL" -ForegroundColor Gray
