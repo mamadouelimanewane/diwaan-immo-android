@@ -47,9 +47,9 @@ export async function POST(request: NextRequest) {
             {
                 title: "Appartement F3 Mermoz",
                 description: "Appartement familial, proche écoles, 3 chambres, balcon",
-                type: "APARTMENT",
-                transactionType: "RENT",
-                status: "ACTIVE",
+                type: "APARTMENT" as const,
+                transactionType: "RENT" as const,
+                status: "ACTIVE" as const,
                 price: 400000,
                 surface: 95,
                 bedrooms: 3,
@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     ...prop,
                     ownerId: adminUser.id  // Lier à l'utilisateur admin
-                }
+                } as any  // Type assertion pour contourner l'erreur de type
             });
             created++;
         }
