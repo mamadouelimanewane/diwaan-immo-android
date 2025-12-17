@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
             data: {
                 ...validation.data,
                 ownerId: payload.userId,
-                status: 'PENDING', // Doit être vérifiée par un admin
+                status: 'DRAFT', // Sera activée après validation admin
             },
             include: {
                 owner: {
