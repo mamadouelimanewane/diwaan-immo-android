@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api-client';
+import { rentalProperties, formatPrice } from '@/lib/data';
 
 export default function RentPage() {
     const [rentals, setRentals] = useState<any[]>([]);
@@ -13,11 +14,38 @@ export default function RentPage() {
             try {
                 // Fetch properties with transactionType = 'RENT'
                 const response = await api.properties.getAll({ transactionType: 'RENT' });
-                if (response.success) {
+                if (response.success && response.properties && response.properties.length > 0) {
                     setRentals(response.properties);
+                } else {
+                    // Fallback to static demo data
+                    setRentals(rentalProperties.map(p => ({
+                        id: p.id,
+                        title: p.address,
+                        address: p.address,
+                        city: p.city,
+                        price: p.pricePerMonth || p.price,
+                        bedrooms: p.beds,
+                        bathrooms: p.baths,
+                        surface: p.sqft,
+                        images: [p.imageUrl],
+                        description: p.description
+                    })));
                 }
             } catch (error) {
                 console.error("Failed to fetch rentals:", error);
+                // Fallback to static demo data on error
+                setRentals(rentalProperties.map(p => ({
+                    id: p.id,
+                    title: p.address,
+                    address: p.address,
+                    city: p.city,
+                    price: p.pricePerMonth || p.price,
+                    bedrooms: p.beds,
+                    bathrooms: p.baths,
+                    surface: p.sqft,
+                    images: [p.imageUrl],
+                    description: p.description
+                })));
             } finally {
                 setLoading(false);
             }
