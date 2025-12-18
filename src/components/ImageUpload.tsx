@@ -1,8 +1,14 @@
 'use client';
 
-import { CldUploadWidget } from 'next-cloudinary';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+// Dynamic import to avoid SSR issues with Cloudinary
+const CldUploadWidget = dynamic(
+    () => import('next-cloudinary').then(mod => mod.CldUploadWidget),
+    { ssr: false }
+);
 
 interface ImageUploadProps {
     onUpload: (url: string) => void;
@@ -14,6 +20,13 @@ interface ImageUploadProps {
 export default function ImageUpload({ onUpload, onRemove, images = [], maxImages = 10 }: ImageUploadProps) {
     const [uploadedImages, setUploadedImages] = useState<string[]>(images);
     const [isUploading, setIsUploading] = useState(false);
+    const [isCloudinaryReady, setIsCloudinaryReady] = useState(false);
+
+    // Check if Cloudinary is configured (client-side only)
+    useEffect(() => {
+        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+        setIsCloudinaryReady(!!cloudName && cloudName.length > 0);
+    }, []);
 
     const handleSuccess = (result: any) => {
         const url = result.info.secure_url;
@@ -43,7 +56,7 @@ export default function ImageUpload({ onUpload, onRemove, images = [], maxImages
                     </p>
                 </div>
 
-                {canUploadMore && (
+                {canUploadMore && isCloudinaryReady && (
                     <CldUploadWidget
                         uploadPreset="diwaan_properties"
                         onSuccess={handleSuccess}
@@ -97,6 +110,29 @@ export default function ImageUpload({ onUpload, onRemove, images = [], maxImages
                             </button>
                         )}
                     </CldUploadWidget>
+                )}
+
+                {/* Fallback when Cloudinary is not configured */}
+                {canUploadMore && !isCloudinaryReady && (
+                    <button
+                        type="button"
+                        disabled
+                        style={{
+                            padding: '12px 24px',
+                            background: '#ccc',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: 'bold',
+                            cursor: 'not-allowed',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                        }}
+                        title="Cloudinary non configuré"
+                    >
+                        📸 Upload non disponible
+                    </button>
                 )}
             </div>
 
