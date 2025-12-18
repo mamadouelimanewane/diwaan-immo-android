@@ -76,7 +76,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Oumar Fall',
             phone: '+221 78 999 00 11',
-            image: 'https://randomuser.me/api/portraits/men/45.jpg'
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -98,7 +98,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Mariama Sarr',
             phone: '+221 77 456 78 90',
-            image: 'https://randomuser.me/api/portraits/women/33.jpg'
+            image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face'
         }
     },
     // DAKAR - POINT E
@@ -121,7 +121,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Amadou Sow',
             phone: '+221 70 555 66 77',
-            image: 'https://randomuser.me/api/portraits/men/32.jpg'
+            image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face'
         }
     },
     // DAKAR - MERMOZ
@@ -144,7 +144,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Cheikh Mbaye',
             phone: '+221 76 234 56 78',
-            image: 'https://randomuser.me/api/portraits/men/55.jpg'
+            image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face'
         }
     },
     // DAKAR - PLATEAU
@@ -167,7 +167,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Ibrahima Diallo',
             phone: '+221 77 888 99 00',
-            image: 'https://randomuser.me/api/portraits/men/28.jpg'
+            image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face'
         }
     },
     // DAKAR - SACRÉ-CŒUR
@@ -190,7 +190,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Fatou Ndiaye',
             phone: '+221 76 890 12 34',
-            image: 'https://randomuser.me/api/portraits/women/22.jpg'
+            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
         }
     },
     // DAKAR - OUAKAM
@@ -213,7 +213,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Moussa Diop',
             phone: '+221 77 123 45 67',
-            image: 'https://randomuser.me/api/portraits/men/11.jpg'
+            image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face'
         }
     },
 
@@ -239,7 +239,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Jean-Pierre Dubois',
             phone: '+221 77 567 89 01',
-            image: 'https://randomuser.me/api/portraits/men/62.jpg'
+            image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -261,7 +261,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Sophie Martin',
             phone: '+221 76 345 67 89',
-            image: 'https://randomuser.me/api/portraits/women/45.jpg'
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -283,7 +283,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Patrick Lefebvre',
             phone: '+221 78 234 56 78',
-            image: 'https://randomuser.me/api/portraits/men/52.jpg'
+            image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -305,7 +305,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Abdoulaye Dieng',
             phone: '+221 77 678 90 12',
-            image: 'https://randomuser.me/api/portraits/men/38.jpg'
+            image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -327,7 +327,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Marie-Claire Diop',
             phone: '+221 76 789 01 23',
-            image: 'https://randomuser.me/api/portraits/women/55.jpg'
+            image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -349,7 +349,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Alain Rousseau',
             phone: '+221 77 890 12 34',
-            image: 'https://randomuser.me/api/portraits/men/67.jpg'
+            image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face'
         }
     },
 
@@ -375,7 +375,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Mamadou Sy',
             phone: '+221 77 345 67 89',
-            image: 'https://randomuser.me/api/portraits/men/42.jpg'
+            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -397,7 +397,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Ousmane Ba',
             phone: '+221 76 456 78 90',
-            image: 'https://randomuser.me/api/portraits/men/25.jpg'
+            image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -419,7 +419,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Awa Gueye',
             phone: '+221 77 567 89 01',
-            image: 'https://randomuser.me/api/portraits/women/35.jpg'
+            image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -441,7 +441,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Ibrahima Diallo',
             phone: '+221 77 888 99 00',
-            image: 'https://randomuser.me/api/portraits/men/28.jpg'
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
         }
     },
 
@@ -467,7 +467,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Catherine Leroy',
             phone: '+221 78 123 45 67',
-            image: 'https://randomuser.me/api/portraits/women/48.jpg'
+            image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -489,7 +489,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Modou Faye',
             phone: '+221 76 234 56 78',
-            image: 'https://randomuser.me/api/portraits/men/36.jpg'
+            image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -511,7 +511,7 @@ export const properties: Property[] = [
         agent: {
             name: 'Oumar Fall',
             phone: '+221 78 999 00 11',
-            image: 'https://randomuser.me/api/portraits/men/45.jpg'
+            image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face'
         }
     }
 ];
@@ -526,7 +526,7 @@ export const agents: Agent[] = [
         name: 'Oumar Fall',
         phone: '+221 78 999 00 11',
         email: 'oumar.fall@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/45.jpg',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Prestige',
         specialties: ['Villas de luxe', 'Biens de prestige', 'Investissement'],
         languages: ['Français', 'Wolof', 'Anglais'],
@@ -542,7 +542,7 @@ export const agents: Agent[] = [
         name: 'Fatou Ndiaye',
         phone: '+221 76 890 12 34',
         email: 'fatou.ndiaye@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/women/22.jpg',
+        image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Immobilier',
         specialties: ['Appartements', 'Résidentiel', 'Location'],
         languages: ['Français', 'Wolof', 'Anglais'],
@@ -558,7 +558,7 @@ export const agents: Agent[] = [
         name: 'Amadou Sow',
         phone: '+221 70 555 66 77',
         email: 'amadou.sow@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/32.jpg',
+        image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Business',
         specialties: ['Bureaux', 'Locaux commerciaux', 'Investissement'],
         languages: ['Français', 'Wolof', 'Anglais', 'Arabe'],
@@ -574,7 +574,7 @@ export const agents: Agent[] = [
         name: 'Mariama Sarr',
         phone: '+221 77 456 78 90',
         email: 'mariama.sarr@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/women/33.jpg',
+        image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Prestige',
         specialties: ['Villas', 'Résidences secondaires', 'Expatriés'],
         languages: ['Français', 'Wolof', 'Anglais', 'Espagnol'],
@@ -591,7 +591,7 @@ export const agents: Agent[] = [
         name: 'Jean-Pierre Dubois',
         phone: '+221 77 567 89 01',
         email: 'jp.dubois@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/62.jpg',
+        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Petite Côte',
         specialties: ['Résidences secondaires', 'Investissement locatif', 'Retraités'],
         languages: ['Français', 'Anglais'],
@@ -607,7 +607,7 @@ export const agents: Agent[] = [
         name: 'Sophie Martin',
         phone: '+221 76 345 67 89',
         email: 'sophie.martin@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/women/45.jpg',
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Petite Côte',
         specialties: ['Villas bord de mer', 'Luxe', 'Programmes neufs'],
         languages: ['Français', 'Anglais', 'Allemand'],
@@ -623,7 +623,7 @@ export const agents: Agent[] = [
         name: 'Patrick Lefebvre',
         phone: '+221 78 234 56 78',
         email: 'patrick.lefebvre@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/52.jpg',
+        image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Golf & Résidences',
         specialties: ['Golfs', 'Résidences haut de gamme', 'Gestion locative'],
         languages: ['Français', 'Anglais'],
@@ -640,7 +640,7 @@ export const agents: Agent[] = [
         name: 'Abdoulaye Dieng',
         phone: '+221 77 678 90 12',
         email: 'abdoulaye.dieng@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/38.jpg',
+        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Mbour',
         specialties: ['Maisons traditionnelles', 'Terrains', 'Commercial'],
         languages: ['Français', 'Wolof', 'Sérère'],
@@ -656,7 +656,7 @@ export const agents: Agent[] = [
         name: 'Mamadou Sy',
         phone: '+221 77 345 67 89',
         email: 'mamadou.sy@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/men/42.jpg',
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Thiès',
         specialties: ['Résidentiel', 'Terrains', 'Agriculture'],
         languages: ['Français', 'Wolof'],
@@ -672,7 +672,7 @@ export const agents: Agent[] = [
         name: 'Awa Gueye',
         phone: '+221 77 567 89 01',
         email: 'awa.gueye@diwaan.sn',
-        image: 'https://randomuser.me/api/portraits/women/35.jpg',
+        image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
         agency: 'Diwaan Thiès',
         specialties: ['Maisons familiales', 'Premier achat', 'Location'],
         languages: ['Français', 'Wolof'],
@@ -696,7 +696,7 @@ export const users: User[] = [
         email: 'admin@diwaan.sn',
         phone: '+221 77 752 92 88',
         role: 'ADMIN',
-        avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
+        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
         location: 'Dakar, Sénégal',
         nationality: 'Sénégalaise',
         createdAt: '2024-01-15'
@@ -707,7 +707,7 @@ export const users: User[] = [
         email: 'aissatou.diallo@diwaan.sn',
         phone: '+221 76 123 45 67',
         role: 'ADMIN',
-        avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
         location: 'Dakar, Sénégal',
         nationality: 'Sénégalaise',
         createdAt: '2024-02-01'
@@ -719,7 +719,7 @@ export const users: User[] = [
         email: 'cheikh.diop@gmail.com',
         phone: '+221 77 234 56 78',
         role: 'SELLER',
-        avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
+        avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face',
         location: 'Almadies, Dakar',
         nationality: 'Sénégalaise',
         createdAt: '2024-03-10'
@@ -730,7 +730,7 @@ export const users: User[] = [
         email: 'ndeye.mbaye@yahoo.fr',
         phone: '+221 76 345 67 89',
         role: 'SELLER',
-        avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face',
         location: 'Mermoz, Dakar',
         nationality: 'Sénégalaise',
         createdAt: '2024-04-22'
@@ -742,7 +742,7 @@ export const users: User[] = [
         email: 'michel.durand@orange.fr',
         phone: '+221 77 456 78 90',
         role: 'SELLER',
-        avatar: 'https://randomuser.me/api/portraits/men/58.jpg',
+        avatar: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face',
         location: 'Saly, Mbour',
         nationality: 'Française',
         createdAt: '2024-02-28'
@@ -753,7 +753,7 @@ export const users: User[] = [
         email: 'helga.schmidt@web.de',
         phone: '+221 78 567 89 01',
         role: 'SELLER',
-        avatar: 'https://randomuser.me/api/portraits/women/52.jpg',
+        avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face',
         location: 'Ngaparou, Mbour',
         nationality: 'Allemande',
         createdAt: '2024-05-15'
@@ -765,7 +765,7 @@ export const users: User[] = [
         email: 'ibrahima.seck@gmail.com',
         phone: '+221 70 678 90 12',
         role: 'USER',
-        avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
         location: 'Thiès, Sénégal',
         nationality: 'Sénégalaise',
         createdAt: '2024-06-01'
@@ -776,7 +776,7 @@ export const users: User[] = [
         email: 'aminata.toure@hotmail.com',
         phone: '+221 76 789 01 23',
         role: 'USER',
-        avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
+        avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
         location: 'Point E, Dakar',
         nationality: 'Sénégalaise',
         createdAt: '2024-05-20'
@@ -787,7 +787,7 @@ export const users: User[] = [
         email: 'pierre.moreau@gmail.com',
         phone: '+33 6 12 34 56 78',
         role: 'USER',
-        avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
+        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
         location: 'Lyon, France',
         nationality: 'Française',
         createdAt: '2024-04-10'
@@ -798,7 +798,7 @@ export const users: User[] = [
         email: 'ousmane.ndiaye@senelec.sn',
         phone: '+221 77 890 12 34',
         role: 'USER',
-        avatar: 'https://randomuser.me/api/portraits/men/29.jpg',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
         location: 'Sacré-Cœur, Dakar',
         nationality: 'Sénégalaise',
         createdAt: '2024-03-25'
@@ -809,7 +809,7 @@ export const users: User[] = [
         email: 'ml.diatta@gmail.com',
         phone: '+221 76 901 23 45',
         role: 'USER',
-        avatar: 'https://randomuser.me/api/portraits/women/36.jpg',
+        avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face',
         location: 'Ziguinchor, Sénégal',
         nationality: 'Sénégalaise',
         createdAt: '2024-06-10'
@@ -841,7 +841,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Mariama Sarr',
             phone: '+221 77 456 78 90',
-            image: 'https://randomuser.me/api/portraits/women/33.jpg'
+            image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -865,7 +865,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Jean-Pierre Dubois',
             phone: '+221 77 567 89 01',
-            image: 'https://randomuser.me/api/portraits/men/62.jpg'
+            image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -889,7 +889,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Amadou Sow',
             phone: '+221 70 555 66 77',
-            image: 'https://randomuser.me/api/portraits/men/32.jpg'
+            image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -913,7 +913,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Fatou Ndiaye',
             phone: '+221 76 890 12 34',
-            image: 'https://randomuser.me/api/portraits/women/22.jpg'
+            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -937,7 +937,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Modou Faye',
             phone: '+221 76 234 56 78',
-            image: 'https://randomuser.me/api/portraits/men/36.jpg'
+            image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face'
         }
     },
     {
@@ -961,7 +961,7 @@ export const rentalProperties: Property[] = [
         agent: {
             name: 'Alain Rousseau',
             phone: '+221 77 890 12 34',
-            image: 'https://randomuser.me/api/portraits/men/67.jpg'
+            image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face'
         }
     }
 ];
