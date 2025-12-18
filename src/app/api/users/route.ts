@@ -12,9 +12,9 @@ try {
 
 let bcrypt: any;
 try {
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcryptjs');
 } catch (e) {
-    console.warn('bcrypt not available');
+    console.warn('bcryptjs not available');
 }
 
 // GET /api/users - Liste des utilisateurs
