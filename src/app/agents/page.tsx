@@ -2,20 +2,20 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { agents as agentsData } from '@/lib/data';
 
 export default function AgentsPage() {
     const [searchQuery, setSearchQuery] = useState('');
 
-    const agents = [
-        { id: 1, name: "Moussa Diop", spec: "Spécialiste Vente • Dakar", review: "4.9 (45 avis)", email: "m.diop@diwaan.sn", phone: "+221 77 123 45 67" },
-        { id: 2, name: "Fatou Ndiaye", spec: "Location & Gestion • Saly", review: "5.0 (32 avis)", email: "f.ndiaye@diwaan.sn", phone: "+221 76 234 56 78" },
-        { id: 3, name: "Jean Gomis", spec: "Immobilier de Luxe", review: "4.8 (28 avis)", email: "j.gomis@diwaan.sn", phone: "+221 75 345 67 89" },
-        { id: 4, name: "Agence Teranga", spec: "Terrains & Constructeurs", review: "4.7 (50+ avis)", email: "contact@teranga.sn", phone: "+221 33 456 78 90" }
-    ];
+    // Filter agents based on search
+    const filteredAgents = agentsData.filter(agent =>
+        agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        agent.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        agent.specialties.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        alert(`Recherche pour: ${searchQuery}`);
     };
 
     const handleContact = (agent: any) => {
@@ -43,23 +43,58 @@ export default function AgentsPage() {
             </div>
 
             <div style={{ marginBottom: '40px' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Agents à la Une</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '30px' }}>
-                    {agents.map((agent) => (
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
+                    {searchQuery ? `Résultats pour "${searchQuery}"` : 'Agents à la Une'} ({filteredAgents.length})
+                </h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '30px' }}>
+                    {filteredAgents.map((agent) => (
                         <div key={agent.id} style={{ border: '1px solid var(--border)', borderRadius: '12px', padding: '24px', transition: 'box-shadow 0.2s', background: 'var(--card)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-                                <div style={{ width: '60px', height: '60px', background: '#006AFF', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '24px', fontWeight: 'bold' }}>
-                                    {agent.name.charAt(0)}
-                                </div>
+                                <img
+                                    src={agent.image}
+                                    alt={agent.name}
+                                    style={{ width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #006AFF' }}
+                                />
                                 <div>
-                                    <h3 style={{ fontWeight: 'bold' }}>{agent.name}</h3>
-                                    <div style={{ fontSize: '14px', color: '#666' }}>{agent.spec}</div>
+                                    <h3 style={{ fontWeight: 'bold', fontSize: '18px' }}>{agent.name}</h3>
+                                    <div style={{ fontSize: '13px', color: '#006AFF', fontWeight: '500' }}>{agent.agency}</div>
+                                    <div style={{ fontSize: '13px', color: '#666' }}>📍 {agent.location}</div>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '20px' }}>
-                                <span style={{ color: '#F59E0B' }}>★</span>
-                                <span style={{ fontWeight: 'bold' }}>{agent.review}</span>
+
+                            {/* Specialties */}
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+                                {agent.specialties.slice(0, 3).map((spec, i) => (
+                                    <span key={i} style={{ background: '#EBF8FF', color: '#006AFF', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '500' }}>
+                                        {spec}
+                                    </span>
+                                ))}
                             </div>
+
+                            {/* Stats */}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '13px' }}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontWeight: 'bold', color: '#1B254B' }}>{agent.propertiesSold}</div>
+                                    <div style={{ color: '#888' }}>Ventes</div>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontWeight: 'bold', color: '#1B254B' }}>{agent.yearsExperience} ans</div>
+                                    <div style={{ color: '#888' }}>Expérience</div>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                                        <span style={{ color: '#F59E0B' }}>★</span>
+                                        <span style={{ fontWeight: 'bold', color: '#1B254B' }}>{agent.rating}</span>
+                                    </div>
+                                    <div style={{ color: '#888' }}>{agent.reviewCount} avis</div>
+                                </div>
+                            </div>
+
+                            {/* Languages */}
+                            <div style={{ fontSize: '12px', color: '#666', marginBottom: '16px' }}>
+                                🌍 {agent.languages.join(', ')}
+                            </div>
+
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                                 <button
                                     onClick={() => handleContact(agent)}

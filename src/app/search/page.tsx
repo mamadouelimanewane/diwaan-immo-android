@@ -51,17 +51,55 @@ function SearchContent() {
             };
             if (filters.priceMin) params.minPrice = Number(filters.priceMin);
             if (filters.priceMax) params.maxPrice = Number(filters.priceMax);
-            if (filters.homeType.length > 0) params.type = filters.homeType.join(','); // API needs to handle comma separated or single
-            // Note: API client getAll type param is string. backend usually expects single value or we need to update backend to support IN operator.
-            // For now let's hope backend supports comma or just send first one?
-            // Actually propertiesApi.getAll params.type is string.
+            if (filters.homeType.length > 0) params.type = filters.homeType.join(',');
 
             const response = await api.properties.getAll(params);
-            if (response.success) {
+            if (response.success && response.properties && response.properties.length > 0) {
                 setFilteredProperties(response.properties);
+            } else {
+                // Fallback to static demo data
+                const { properties, rentalProperties } = await import('@/lib/data');
+                const allProps = filters.transactionType === 'RENT' ? rentalProperties : properties;
+                setFilteredProperties(allProps.map(p => ({
+                    id: p.id,
+                    title: p.address,
+                    address: p.address,
+                    city: p.city,
+                    price: p.price,
+                    bedrooms: p.beds,
+                    bathrooms: p.baths,
+                    surface: p.sqft,
+                    images: [p.imageUrl],
+                    description: p.description,
+                    latitude: p.lat,
+                    longitude: p.lng,
+                    type: p.type
+                })));
             }
         } catch (error) {
             console.error("Failed to fetch properties", error);
+            // Fallback to static demo data on error
+            try {
+                const { properties, rentalProperties } = await import('@/lib/data');
+                const allProps = filters.transactionType === 'RENT' ? rentalProperties : properties;
+                setFilteredProperties(allProps.map(p => ({
+                    id: p.id,
+                    title: p.address,
+                    address: p.address,
+                    city: p.city,
+                    price: p.price,
+                    bedrooms: p.beds,
+                    bathrooms: p.baths,
+                    surface: p.sqft,
+                    images: [p.imageUrl],
+                    description: p.description,
+                    latitude: p.lat,
+                    longitude: p.lng,
+                    type: p.type
+                })));
+            } catch (e) {
+                console.error("Failed to load fallback data", e);
+            }
         } finally {
             setLoading(false);
         }
