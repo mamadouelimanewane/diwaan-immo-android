@@ -3,49 +3,39 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api-client';
-import { rentalProperties, formatPrice } from '@/lib/data';
+import { rentalProperties } from '@/lib/data';
+
+// Convert static data to API format once
+const staticRentalsConverted = rentalProperties.map(p => ({
+    id: p.id,
+    title: p.address,
+    address: p.address,
+    city: p.city,
+    price: p.pricePerMonth || p.price,
+    bedrooms: p.beds,
+    bathrooms: p.baths,
+    surface: p.sqft,
+    images: [p.imageUrl],
+    description: p.description
+}));
 
 export default function RentPage() {
-    const [rentals, setRentals] = useState<any[]>([]);
+    // Initialize with static data immediately
+    const [rentals, setRentals] = useState<any[]>(staticRentalsConverted);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                // Fetch properties with transactionType = 'RENT'
+                // Try to fetch from API
                 const response = await api.properties.getAll({ transactionType: 'RENT' });
                 if (response.success && response.properties && response.properties.length > 0) {
                     setRentals(response.properties);
-                } else {
-                    // Fallback to static demo data
-                    setRentals(rentalProperties.map(p => ({
-                        id: p.id,
-                        title: p.address,
-                        address: p.address,
-                        city: p.city,
-                        price: p.pricePerMonth || p.price,
-                        bedrooms: p.beds,
-                        bathrooms: p.baths,
-                        surface: p.sqft,
-                        images: [p.imageUrl],
-                        description: p.description
-                    })));
                 }
+                // If API returns empty, we keep the static data already set
             } catch (error) {
-                console.error("Failed to fetch rentals:", error);
-                // Fallback to static demo data on error
-                setRentals(rentalProperties.map(p => ({
-                    id: p.id,
-                    title: p.address,
-                    address: p.address,
-                    city: p.city,
-                    price: p.pricePerMonth || p.price,
-                    bedrooms: p.beds,
-                    bathrooms: p.baths,
-                    surface: p.sqft,
-                    images: [p.imageUrl],
-                    description: p.description
-                })));
+                console.error("API unavailable, using static data:", error);
+                // Keep static data on error
             } finally {
                 setLoading(false);
             }

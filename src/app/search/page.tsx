@@ -8,12 +8,30 @@ import Link from 'next/link';
 import styles from './page.module.css';
 import PropertyCard from '@/components/PropertyCard';
 import { api } from '@/lib/api-client';
+import { properties as staticProperties, rentalProperties as staticRentals } from '@/lib/data';
 
 // Dynamically import Map with no SSR
 const MapWithNoSSR = dynamic(() => import('@/components/map/Map'), {
     ssr: false,
     loading: () => <div style={{ height: '100%', width: '100%', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Chargement de la carte...</div>
 });
+
+// Pre-convert static data for immediate use
+const staticPropsConverted = staticProperties.map(p => ({
+    id: p.id,
+    title: p.address,
+    address: p.address,
+    city: p.city,
+    price: p.price,
+    bedrooms: p.beds,
+    bathrooms: p.baths,
+    surface: p.sqft,
+    images: [p.imageUrl],
+    description: p.description,
+    latitude: p.lat,
+    longitude: p.lng,
+    type: p.type
+}));
 
 function SearchContent() {
     const searchParams = useSearchParams();
@@ -22,7 +40,8 @@ function SearchContent() {
     const [loading, setLoading] = useState(true);
     const [pageTitle, setPageTitle] = useState("Immobilier à vendre au Sénégal");
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
-    const [filteredProperties, setFilteredProperties] = useState<any[]>([]);
+    // Initialize with static data immediately
+    const [filteredProperties, setFilteredProperties] = useState<any[]>(staticPropsConverted);
     const [filters, setFilters] = useState({
         city: '',
         priceMin: '',
@@ -42,6 +61,23 @@ function SearchContent() {
         setInternalHomeType(filters.homeType || []);
     }, [filters.priceMin, filters.priceMax, filters.homeType]);
 
+    // Helper function to convert static data to API format
+    const convertStaticData = (props: typeof staticProperties) => props.map(p => ({
+        id: p.id,
+        title: p.address,
+        address: p.address,
+        city: p.city,
+        price: p.price,
+        bedrooms: p.beds,
+        bathrooms: p.baths,
+        surface: p.sqft,
+        images: [p.imageUrl],
+        description: p.description,
+        latitude: p.lat,
+        longitude: p.lng,
+        type: p.type
+    }));
+
     const fetchProperties = async () => {
         setLoading(true);
         try {
@@ -58,48 +94,14 @@ function SearchContent() {
                 setFilteredProperties(response.properties);
             } else {
                 // Fallback to static demo data
-                const { properties, rentalProperties } = await import('@/lib/data');
-                const allProps = filters.transactionType === 'RENT' ? rentalProperties : properties;
-                setFilteredProperties(allProps.map(p => ({
-                    id: p.id,
-                    title: p.address,
-                    address: p.address,
-                    city: p.city,
-                    price: p.price,
-                    bedrooms: p.beds,
-                    bathrooms: p.baths,
-                    surface: p.sqft,
-                    images: [p.imageUrl],
-                    description: p.description,
-                    latitude: p.lat,
-                    longitude: p.lng,
-                    type: p.type
-                })));
+                const sourceData = filters.transactionType === 'RENT' ? staticRentals : staticProperties;
+                setFilteredProperties(convertStaticData(sourceData));
             }
         } catch (error) {
-            console.error("Failed to fetch properties", error);
+            console.error("Failed to fetch properties, using static data", error);
             // Fallback to static demo data on error
-            try {
-                const { properties, rentalProperties } = await import('@/lib/data');
-                const allProps = filters.transactionType === 'RENT' ? rentalProperties : properties;
-                setFilteredProperties(allProps.map(p => ({
-                    id: p.id,
-                    title: p.address,
-                    address: p.address,
-                    city: p.city,
-                    price: p.price,
-                    bedrooms: p.beds,
-                    bathrooms: p.baths,
-                    surface: p.sqft,
-                    images: [p.imageUrl],
-                    description: p.description,
-                    latitude: p.lat,
-                    longitude: p.lng,
-                    type: p.type
-                })));
-            } catch (e) {
-                console.error("Failed to load fallback data", e);
-            }
+            const sourceData = filters.transactionType === 'RENT' ? staticRentals : staticProperties;
+            setFilteredProperties(convertStaticData(sourceData));
         } finally {
             setLoading(false);
         }
