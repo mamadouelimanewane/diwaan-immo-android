@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'out',
   server: {
     // Pour utiliser l'app web déployée sur Vercel
-    url: 'https://zillow-clone-lebv2gec5-mamadou-dias-projects-979b1f4f.vercel.app',
+    url: 'https://diwaan-immo-android.vercel.app',
     cleartext: true
   },
   android: {

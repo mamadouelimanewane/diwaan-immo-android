@@ -1,11 +1,12 @@
-// Service Worker pour Diwaan Immo PWA
-const CACHE_NAME = 'diwaan-immo-v2-prix-corriges'; // Version 2 avec prix corrigés
+const CACHE_NAME = 'diwaan-immo-v1';
 const urlsToCache = [
     '/',
     '/search',
-    '/dashboard',
-    '/legal-assistant',
-    '/offline.html'
+    '/rent',
+    '/agents',
+    '/guides',
+    '/loans',
+    '/manifest.json'
 ];
 
 // Installation du Service Worker
@@ -16,11 +17,14 @@ self.addEventListener('install', (event) => {
                 console.log('Cache ouvert');
                 return cache.addAll(urlsToCache);
             })
+            .catch((error) => {
+                console.log('Erreur de cache:', error);
+            })
     );
     self.skipWaiting();
 });
 
-// Activation du Service Worker
+// Activation et nettoyage des anciens caches
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -34,51 +38,51 @@ self.addEventListener('activate', (event) => {
             );
         })
     );
-    return self.clients.claim();
+    self.clients.claim();
 });
 
-// Interception des requêtes
+// Stratégie Network First avec fallback sur le cache
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                // Cache hit - retourner la réponse du cache
-                if (response) {
-                    return response;
-                }
+    // Ignorer les requêtes non-GET
+    if (event.request.method !== 'GET') return;
 
-                return fetch(event.request).then(
-                    (response) => {
-                        // Vérifier si réponse valide
-                        if (!response || response.status !== 200 || response.type !== 'basic') {
+    // Ignorer les requêtes API (toujours faire du réseau)
+    if (event.request.url.includes('/api/')) return;
+
+    event.respondWith(
+        fetch(event.request)
+            .then((response) => {
+                // Cloner la réponse car elle ne peut être utilisée qu'une fois
+                const responseClone = response.clone();
+
+                caches.open(CACHE_NAME)
+                    .then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
+
+                return response;
+            })
+            .catch(() => {
+                // Si pas de réseau, essayer le cache
+                return caches.match(event.request)
+                    .then((response) => {
+                        if (response) {
                             return response;
                         }
-
-                        // Cloner la réponse
-                        const responseToCache = response.clone();
-
-                        caches.open(CACHE_NAME)
-                            .then((cache) => {
-                                cache.put(event.request, responseToCache);
-                            });
-
-                        return response;
-                    }
-                ).catch(() => {
-                    // Retourner page offline si pas de connexion
-                    return caches.match('/offline.html');
-                });
+                        // Si pas dans le cache, retourner la page d'accueil en fallback
+                        return caches.match('/');
+                    });
             })
     );
 });
 
-// Push notifications (optionnel)
+// Gestion des notifications push (pour plus tard)
 self.addEventListener('push', (event) => {
     const options = {
-        body: event.data ? event.data.text() : 'Nouvelle notification de Diwaan Immo',
-        icon: '/icon-192x192.png',
-        badge: '/icon-72x72.png',
-        vibrate: [200, 100, 200],
+        body: event.data ? event.data.text() : 'Nouvelle notification Diwaan',
+        icon: '/icons/icon-192x192.png',
+        badge: '/icons/icon-72x72.png',
+        vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),
             primaryKey: 1
