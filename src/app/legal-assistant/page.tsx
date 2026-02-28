@@ -117,6 +117,15 @@ export default function LegalAssistantPage() {
                                     </Link>
                                 </li>
                                 <li style={{ marginBottom: '12px' }}>
+                                    <Link href="/documents/decret-1932.pdf" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', gap: '10px', textDecoration: 'none', color: 'inherit', alignItems: 'start' }}>
+                                        <Book size={18} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
+                                        <div>
+                                            <div style={{ fontWeight: '600', fontSize: '14px' }}>Décret du 26 juillet 1932</div>
+                                            <div style={{ fontSize: '13px', color: '#666' }}>Organisation de la propriété foncière (Immatriculation).</div>
+                                        </div>
+                                    </Link>
+                                </li>
+                                <li style={{ marginBottom: '12px' }}>
                                     <Link href="/documents/code-domaine-etat.pdf" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', gap: '10px', textDecoration: 'none', color: 'inherit', alignItems: 'start' }}>
                                         <Book size={18} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
                                         <div>
@@ -125,6 +134,7 @@ export default function LegalAssistantPage() {
                                         </div>
                                     </Link>
                                 </li>
+
                             </ul>
                         </div>
 
@@ -160,6 +170,16 @@ export default function LegalAssistantPage() {
                                         </div>
                                     </Link>
                                 </li>
+                                <li style={{ marginBottom: '12px' }}>
+                                    <Link href="/documents/arrete-valeurs-venales.pdf" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', gap: '10px', textDecoration: 'none', color: 'inherit', alignItems: 'start' }}>
+                                        <FileText size={18} style={{ color: '#006AFF', flexShrink: 0, marginTop: '2px' }} />
+                                        <div>
+                                            <div style={{ fontWeight: '600', fontSize: '14px' }}>Arrêté Valeurs Vénales</div>
+                                            <div style={{ fontSize: '13px', color: '#666' }}>Fixation des prix du sol par zones géographiques.</div>
+                                        </div>
+                                    </Link>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
