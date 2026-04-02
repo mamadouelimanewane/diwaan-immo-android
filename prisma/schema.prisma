@@ -391,6 +391,7 @@ model DeveloperProject {
   plots              DeveloperPlot[]
   plotTypeConfigs    PlotTypeConfig[]
   pricingRules       PricingRule[]
+  complianceDocs     ProjectComplianceDocument[]
   
   @@map("developer_projects")
 }
@@ -722,6 +723,7 @@ model DeveloperSale {
   plotId            String   @unique @db.ObjectId
   agencyId          String   @db.ObjectId
   developerId       String   @db.ObjectId
+  notaryId          String?  @db.ObjectId
   saleNumber        String   @unique
   totalPaid         Float
   cessionAmount     Float
@@ -740,6 +742,7 @@ model DeveloperSale {
   plot              DeveloperPlot @relation(fields: [plotId], references: [id])
   agency            RealEstateAgency @relation(fields: [agencyId], references: [id])
   developer         Developer @relation(fields: [developerId], references: [id])
+  notary            Notary? @relation(fields: [notaryId], references: [id])
   
   @@map("developer_sales")
 }
@@ -801,4 +804,74 @@ model PriceCalculationHistory {
   plot                 DeveloperPlot @relation(fields: [plotId], references: [id])
   
   @@map("price_calculation_history")
+}
+
+// ==========================================
+// VAULT JURIDIQUE & CHANTIER (Conformité)
+// ==========================================
+
+model ProjectComplianceDocument {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  projectId         String   @db.ObjectId
+  title             String
+  category          DocumentCategory
+  status            DocumentValidationStatus @default(PENDING)
+  authority         String?
+  fileUrl           String   // Lien permanent crypté Cloudinary
+  fileSize          Float?
+  fileType          String?
+  expirationDate    DateTime?
+  uploadedBy        String   // ID uploader
+  validatedBy       String?  // ID approbateur
+  validationDate    DateTime?
+  rejectionReason   String?
+  aiVerificationLog Json?    // Traces de l'analyse OpenAI
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  project           DeveloperProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@map("project_compliance_documents")
+}
+
+enum DocumentCategory {
+  JURIDIQUE
+  TECHNIQUE
+  ENVIRONNEMENTAL
+  FINANCIER
+}
+
+enum DocumentValidationStatus {
+  PENDING
+  VALIDATED
+  REJECTED
+  EXPIRED
+}
+
+// ==========================================
+// NOTAIRES ET AFFAIRES JURIDIQUES
+// ==========================================
+
+model Notary {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName            String
+  lastName             String
+  email                String   @unique
+  phone                String
+  officeName           String
+  address              String
+  city                 String
+  rccm                 String?
+  status               NotaryStatus @default(ACTIVE)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  sales                DeveloperSale[]
+  
+  @@map("notaries")
+}
+
+enum NotaryStatus {
+  ACTIVE
+  SUSPENDED
 }

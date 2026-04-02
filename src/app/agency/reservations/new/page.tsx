@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function NewReservationPage() {
     const router = useRouter();
+    const { user } = useAuth();
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [plots, setPlots] = useState([]);
@@ -14,7 +16,7 @@ export default function NewReservationPage() {
 
     const [formData, setFormData] = useState({
         plotId: '',
-        agentId: '', // TODO: Récupérer depuis auth
+        agentId: '', 
         clientFirstName: '',
         clientLastName: '',
         clientEmail: '',
@@ -26,8 +28,11 @@ export default function NewReservationPage() {
     });
 
     useEffect(() => {
+        if (user?.id) {
+            setFormData(prev => ({ ...prev, agentId: user.id }));
+        }
         fetchAvailablePlots();
-    }, []);
+    }, [user]);
 
     const fetchAvailablePlots = async () => {
         try {

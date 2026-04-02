@@ -45,11 +45,18 @@ export default function AddPropertyForm() {
                 return;
             }
 
-            // TODO: Envoyer à l'API
-            console.log('Données à envoyer:', formData);
-
-            // Simulation
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Envoi réel à l'API
+            const response = await fetch('/api/properties', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await response.json();
+            
+            if (!data.success && !response.ok) {
+                throw new Error(data.error || "Erreur lors de la création");
+            }
 
             alert('✅ Propriété ajoutée avec succès !');
 

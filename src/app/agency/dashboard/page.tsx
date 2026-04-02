@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 export default function AgencyDashboard() {
+    const { user } = useAuth();
     const [agency, setAgency] = useState<any>(null);
     const [stats, setStats] = useState({
         totalReservations: 0,
@@ -16,12 +18,15 @@ export default function AgencyDashboard() {
     const [recentReservations, setRecentReservations] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // TODO: Récupérer l'ID de l'agence depuis l'authentification
-    const agencyId = 'agency-id-here';
+    const agencyId = user?.id || 'agency-id-here';
 
     useEffect(() => {
-        fetchAgencyData();
-    }, []);
+        if (user?.id) {
+            fetchAgencyData();
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
 
     const fetchAgencyData = async () => {
         try {

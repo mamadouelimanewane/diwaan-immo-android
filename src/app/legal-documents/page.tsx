@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import contractTemplates from '@/lib/contractTemplates';
+import { jsPDF } from 'jspdf';
 
 export default function LegalDocumentsPage() {
     const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
@@ -151,10 +152,30 @@ Généré par Diwaan IA - ${new Date().toLocaleString('fr-FR')}
     };
 
     const downloadAsPDF = () => {
-        // Pour l'instant, télécharge en TXT
-        // TODO: Implémenter vraie génération PDF avec jsPDF
-        alert('📥 Téléchargement du contrat...\n\nNote : La génération PDF sera disponible prochainement.\nPour l\'instant, vous pouvez télécharger en format texte ou copier le contenu.');
-        downloadAsText();
+        try {
+            const doc = new jsPDF();
+            doc.setFontSize(14);
+            doc.text(`Contrat - ${formData.type.toUpperCase()}`, 20, 20);
+            
+            doc.setFontSize(10);
+            const splitText = doc.splitTextToSize(generatedContract, 170);
+            
+            let y = 30;
+            for(let i = 0; i < splitText.length; i++){
+                if (y > 280) {
+                    doc.addPage();
+                    y = 20;
+                }
+                doc.text(splitText[i], 20, y);
+                y += 5;
+            }
+            
+            doc.save(`Contrat_${formData.type}_${formData.invoiceNumber}.pdf`);
+        } catch (error) {
+            console.error('Erreur PDF:', error);
+            alert('Erreur lors de la génération du PDF. Format texte sélectionné par défaut.');
+            downloadAsText();
+        }
     };
 
     const generateContractText = (data: any) => {

@@ -67,6 +67,7 @@ export default function AdminSidebar() {
                     <NavItem href="/admin/partnership/projects" icon="🏗️" label="Projets" />
                     <NavItem href="/admin/partnership/plots" icon="📦" label="Parcelles" />
                     <NavItem href="/admin/partnership/reservations" icon="📋" label="Réservations" />
+                    <NavItem href="/admin/workflows/projet-senegal" icon="📑" label="Roadmap Promoteur" />
 
                     {/* Système */}
                     <div style={{ padding: '8px 24px', fontSize: '11px', opacity: 0.5, fontWeight: 'bold', marginTop: '16px' }}>SYSTÈME</div>

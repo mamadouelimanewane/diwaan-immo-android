@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 interface Stats {
     totalProjects: number;
@@ -18,12 +19,16 @@ export default function DeveloperDashboard() {
     const [stats, setStats] = useState<Stats | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // TODO: Récupérer l'ID du développeur depuis l'authentification
-    const developerId = 'developer-id-here'; // À remplacer par auth
+    const { user } = useAuth();
+    const developerId = user?.id || 'developer-id-here';
 
     useEffect(() => {
-        fetchDeveloperData();
-    }, []);
+        if (user?.id) {
+            fetchDeveloperData();
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
 
     const fetchDeveloperData = async () => {
         try {
@@ -211,7 +216,7 @@ export default function DeveloperDashboard() {
                 {/* Quick Actions */}
                 <div className="mt-8 bg-white rounded-lg shadow p-6">
                     <h2 className="text-lg font-semibold text-gray-900 mb-4">Actions Rapides</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <Link
                             href="/admin/projects/new"
                             className="flex items-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition"
@@ -242,6 +247,17 @@ export default function DeveloperDashboard() {
                             <div>
                                 <p className="font-medium text-gray-900">Nouveau Partenariat</p>
                                 <p className="text-sm text-gray-500">Agence commerciale</p>
+                            </div>
+                        </Link>
+
+                        <Link
+                            href="/admin/developer/vault"
+                            className="flex items-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-slate-500 hover:bg-slate-50 transition"
+                        >
+                            <div className="flex-shrink-0 text-3xl mr-4">🏛️</div>
+                            <div>
+                                <p className="font-medium text-gray-900">Vault Juridique</p>
+                                <p className="text-sm text-gray-500">Documents & Conformité</p>
                             </div>
                         </Link>
                     </div>
