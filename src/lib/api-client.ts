@@ -1,6 +1,6 @@
-// API Client pour communiquer avec le backend
-// Use Next.js internal API routes (not external server)
-const API_URL = typeof window !== 'undefined' ? '' : 'http://localhost:3000';
+// API Client pour communiquer avec le backend Express
+// Utilise l'URL du backend ou http://localhost:5000 par défaut
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export class ApiError extends Error {
     constructor(public status: number, message: string, public details?: any) {
