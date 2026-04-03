@@ -1,0 +1,15 @@
+e968a1d fix: restore all mocked APIs, fix Prisma models, fix layout and TypeScript errors
+84572ee fix: explicit PropertyStatus.DRAFT and cleanup bcryptjs imports (STAMP: 20260403_000002)
+1ff30be FORCE_REBUILD_VERCEL_STAMP_20260402_234356
+47d4899 chore: Update backend submodule and sync root files
+20a35aa fix: use only bcryptjs and ensure DRAFT status in properties route
+37ec630 fix: Add bcrypt to resolve Vercel build error
+82d4fa2 feat: Connect frontend data access to backend Express API
+4d26af1 feat: System updates, industrialization, and workflows
+5f44207 feat: connect chatbot to real /api/ai/chat API (DeepSeek + Prisma + tools) - no more mock data
+48216ff fix: complete rewrite of legal assistant chatbot with rich knowledge base and smart response engine
+9d43ae8 feat: enhance AI chatbot with property search, land law expertise, and localized Senegalese vocabulary
+0222bd2 feat: Add GitHub Actions workflow to build Android APK automatically
+2782a02 feat: Add PWA support with manifest, service worker and app icons
+6e8b028 fix: Replace randomuser.me with diverse African professional photos from Unsplash
+9861e45 fix: Initialize pages with static data immediately for guaranteed display
