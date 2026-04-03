@@ -1,104 +1,53 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
-
-// Lazy import prisma
-let prisma: any;
-try {
-    prisma = require('@/lib/prisma').prisma;
-} catch (e) {
-    console.warn('Prisma not available for agencies API');
-}
 
 // GET /api/agencies - Liste des agences
 export async function GET(request: NextRequest) {
     try {
-        if (process.env.NEXT_PHASE === 'phase-production-build' || !prisma) {
-            return getMockAgencies();
-        }
+        const { searchParams } = new URL(request.url);
+        const status = searchParams.get('status');
+        const id = searchParams.get('id');
 
-        const agencies = await prisma.agency.findMany({
-            orderBy: { createdAt: 'desc' }
+        const where: any = {};
+        if (status) where.status = status;
+        if (id) where.id = id;
+
+        const agencies = await prisma.realEstateAgency.findMany({
+            where,
+            orderBy: { createdAt: 'desc' },
         });
 
         return NextResponse.json({
             success: true,
             agencies,
-            count: agencies.length
+            count: agencies.length,
         });
-
-    } catch (error) {
+    } catch (error: any) {
         console.error('Agencies API error:', error);
-        return getMockAgencies();
+        return NextResponse.json(
+            { success: false, error: 'Erreur lors de la récupération des agences', details: error.message },
+            { status: 500 }
+        );
     }
 }
 
 // POST /api/agencies - Créer une agence
 export async function POST(request: NextRequest) {
     try {
-        if (!prisma) {
-            return NextResponse.json({
-                error: 'Service indisponible'
-            }, { status: 503 });
-        }
-
         const body = await request.json();
 
-        const agency = await prisma.agency.create({
-            data: body
+        const agency = await prisma.realEstateAgency.create({
+            data: body,
         });
 
-        return NextResponse.json({
-            success: true,
-            agency
-        }, { status: 201 });
-
-    } catch (error) {
+        return NextResponse.json({ success: true, agency }, { status: 201 });
+    } catch (error: any) {
         console.error('Create agency error:', error);
-        return NextResponse.json({
-            error: 'Erreur lors de la création'
-        }, { status: 500 });
+        return NextResponse.json(
+            { success: false, error: 'Erreur lors de la création', details: error.message },
+            { status: 500 }
+        );
     }
-}
-
-// Helper function for mock data
-function getMockAgencies() {
-    const mockAgencies = [
-        {
-            id: '1',
-            name: 'Immobilier Teranga',
-            email: 'contact@immo-teranga.sn',
-            phone: '+221 33 865 12 34',
-            address: 'Rue Carnot, Dakar',
-            logo: null,
-            website: 'https://immo-teranga.sn',
-            description: 'Agence spécialisée en transactions immobilières',
-            licenseNumber: 'AGE2024001',
-            commissionRate: 5.0,
-            status: 'ACTIVE',
-            createdAt: new Date('2024-02-10'),
-            updatedAt: new Date('2025-12-05')
-        },
-        {
-            id: '2',
-            name: 'Dakar Properties',
-            email: 'info@dakar-properties.com',
-            phone: '+221 33 865 23 45',
-            address: 'Almadies, Dakar',
-            logo: null,
-            website: 'https://dakar-properties.com',
-            description: 'Agence de prestige pour villas et terrains',
-            licenseNumber: 'AGE2024002',
-            commissionRate: 7.0,
-            status: 'ACTIVE',
-            createdAt: new Date('2024-04-15'),
-            updatedAt: new Date('2025-12-03')
-        }
-    ];
-
-    return NextResponse.json({
-        success: true,
-        agencies: mockAgencies,
-        count: mockAgencies.length
-    });
 }

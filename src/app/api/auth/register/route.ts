@@ -5,15 +5,6 @@ import { registerSchema } from '@/lib/validators';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
-    // TEMPORARY MOCK FOR DEPLOYMENT
-    return NextResponse.json({
-        success: true,
-        user: { id: 'mock-user-new', name: 'New User', email: 'new@diwaan.sn', role: 'USER' },
-        token: 'mock-jwt-token-new',
-        message: 'Compte créé avec succès (Mock)',
-    });
-
-    /*
     try {
         const body = await request.json();
 
@@ -21,7 +12,7 @@ export async function POST(request: NextRequest) {
         const validation = registerSchema.safeParse(body);
         if (!validation.success) {
             return NextResponse.json(
-                { error: 'Validation failed', details: validation.error.errors },
+                { error: 'Validation échouée', details: validation.error.errors },
                 { status: 400 }
             );
         }
@@ -57,5 +48,4 @@ export async function POST(request: NextRequest) {
             { status: 500 }
         );
     }
-    */
 }

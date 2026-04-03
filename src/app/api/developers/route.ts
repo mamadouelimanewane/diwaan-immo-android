@@ -1,102 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { verifyToken } from '@/lib/jwt';
 
 export const dynamic = 'force-dynamic';
-
-// Lazy import prisma
-let prisma: any;
-try {
-    prisma = require('@/lib/prisma').prisma;
-} catch (e) {
-    console.warn('Prisma not available for developers API');
-}
 
 // GET /api/developers - Liste des promoteurs
 export async function GET(request: NextRequest) {
     try {
-        if (process.env.NEXT_PHASE === 'phase-production-build' || !prisma) {
-            return getMockDevelopers();
-        }
+        const { searchParams } = new URL(request.url);
+        const status = searchParams.get('status');
+        const id = searchParams.get('id');
+
+        const where: any = {};
+        if (status) where.status = status;
+        if (id) where.id = id;
 
         const developers = await prisma.developer.findMany({
-            orderBy: { createdAt: 'desc' }
+            where,
+            orderBy: { createdAt: 'desc' },
         });
 
         return NextResponse.json({
             success: true,
             developers,
-            count: developers.length
+            count: developers.length,
         });
-
-    } catch (error) {
+    } catch (error: any) {
         console.error('Developers API error:', error);
-        return getMockDevelopers();
+        return NextResponse.json(
+            { success: false, error: 'Erreur lors de la récupération', details: error.message },
+            { status: 500 }
+        );
     }
 }
 
 // POST /api/developers - Créer un promoteur
 export async function POST(request: NextRequest) {
     try {
-        if (!prisma) {
-            return NextResponse.json({
-                error: 'Service indisponible'
-            }, { status: 503 });
+        const authHeader = request.headers.get('authorization');
+        const token = authHeader?.split(' ')[1];
+        if (!token) {
+            return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+        }
+        const payload = verifyToken(token);
+        if (!payload) {
+            return NextResponse.json({ error: 'Token invalide ou expiré' }, { status: 401 });
         }
 
         const body = await request.json();
 
-        const developer = await prisma.developer.create({
-            data: body
-        });
+        const developer = await prisma.developer.create({ data: body });
 
-        return NextResponse.json({
-            success: true,
-            developer
-        }, { status: 201 });
-
-    } catch (error) {
+        return NextResponse.json({ success: true, developer }, { status: 201 });
+    } catch (error: any) {
         console.error('Create developer error:', error);
-        return NextResponse.json({
-            error: 'Erreur lors de la création'
-        }, { status: 500 });
+        return NextResponse.json(
+            { success: false, error: 'Erreur lors de la création', details: error.message },
+            { status: 500 }
+        );
     }
-}
-
-// Helper function for mock data
-function getMockDevelopers() {
-    const mockDevelopers = [
-        {
-            id: '1',
-            name: 'Groupe ABC Promotion',
-            email: 'contact@abc-promo.sn',
-            phone: '+221 33 123 45 67',
-            address: 'Avenue Malick Sy, Dakar',
-            logo: null,
-            website: 'https://abc-promo.sn',
-            description: 'Leader de la promotion immobilière au Sénégal',
-            ninea: 'ABC123456',
-            status: 'ACTIVE',
-            createdAt: new Date('2024-01-15'),
-            updatedAt: new Date('2025-12-01')
-        },
-        {
-            id: '2',
-            name: 'Teranga Construction',
-            email: 'info@teranga-construction.sn',
-            phone: '+221 33 234 56 78',
-            address: 'VDN, Dakar',
-            logo: null,
-            website: 'https://teranga-construction.sn',
-            description: 'Spécialiste des résidences de standing',
-            ninea: 'TER789012',
-            status: 'ACTIVE',
-            createdAt: new Date('2024-03-20'),
-            updatedAt: new Date('2025-11-28')
-        }
-    ];
-
-    return NextResponse.json({
-        success: true,
-        developers: mockDevelopers,
-        count: mockDevelopers.length
-    });
 }

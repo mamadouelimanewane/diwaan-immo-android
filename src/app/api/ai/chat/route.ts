@@ -176,10 +176,10 @@ export async function POST(req: NextRequest) {
                     tool_calls: toolCalls
                 });
 
-                console.log(`[Turn ${iteration}] AI called tools:`, toolCalls.map(t => t.function.name));
+                console.log(`[Turn ${iteration}] AI called tools:`, toolCalls.map((t: any) => t.function?.name));
 
                 // Execute tools
-                for (const toolCall of toolCalls) {
+                for (const toolCall of toolCalls as any[]) {
                     let args;
                     try {
                         args = JSON.parse(toolCall.function.arguments);

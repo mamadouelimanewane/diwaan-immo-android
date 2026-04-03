@@ -9,18 +9,6 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // MOCK FOR DEPLOYMENT SAFETY
-        return NextResponse.json({ success: false, error: 'Auth service temporary unavailable during deployment' }, { status: 503 });
-
-        /*
-        // Build safety: simple check
-        try {
-            await prisma.$queryRaw`SELECT 1`;
-        } catch (e) {
-            console.warn('DB check failed in /api/auth/me');
-            return NextResponse.json({ success: false, error: 'Database unavailable' }, { status: 503 });
-        }
-
         // Extraire le token du header Authorization
         const authHeader = request.headers.get('authorization');
         const token = authHeader?.split(' ')[1];
@@ -69,7 +57,6 @@ export async function GET(request: NextRequest) {
             success: true,
             user,
         });
-        */
     } catch (error: any) {
         console.error('Get current user error:', error);
         return NextResponse.json(

@@ -102,7 +102,7 @@ export default function ProjetSenegalRoadmapPage() {
         (Object.values(tasks).filter(Boolean).length / phases.reduce((acc, phase) => acc + phase.tasks.length, 0)) * 100
     );
 
-    const [activeTab, setActiveTab] = useState<'roadmap' | 'carto' | 'archives' | 'reporting'>('roadmap');
+    const [activeTab, setActiveTab] = useState<'roadmap' | 'carto' | 'archives' | 'reporting' | 'ia_prediction' | 'mairie_live'>('roadmap');
 
     const tabs = [
         { id: 'roadmap', label: '📋 Roadmap', description: 'Suivi WBS' },
