@@ -1,65 +1,121 @@
 import Link from 'next/link';
 import styles from './page.module.css';
-import { Search, Home, Key, DollarSign } from 'lucide-react';
+import { Search, Building2, User, ArrowRight, Bot, Sparkles, Briefcase } from 'lucide-react';
 
 export default function HomePage() {
     return (
-        <div>
+        <main className={styles.main}>
+            {/* HERO SECTION */}
             <section className={styles.hero}>
+                <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    className={styles.heroVideo}
+                >
+                    <source src="https://videos.pexels.com/video-files/7648169/7648169-hd_1920_1080_30fps.mp4" type="video/mp4" />
+                </video>
                 <div className={styles.heroOverlay} />
                 <div className={styles.heroContent}>
-                    <h1 className={styles.title}>Agents. Visites. Prêts. Maisons.</h1>
+                    <div className={styles.badge}>
+                        <Sparkles size={16} />
+                        Proptech N°1 au Sénégal
+                    </div>
+                    <h1 className={styles.title}>L'Immobilier de Nouvelle Génération.</h1>
+                    <p className={styles.subtitle}>
+                        Découvrez un écosystème intelligent où locataires, promoteurs et municipalités se rencontrent. Sécurisé avec l'IA et conforme OHADA.
+                    </p>
+                    
                     <div className={styles.searchContainer}>
-                        <input
-                            type="text"
-                            placeholder="Entrez une adresse, un quartier, une ville (ex: Dakar, Saly)"
-                            className={styles.searchInput}
-                        />
+                        <div className={styles.searchInputWrapper}>
+                            <Search color="#64748b" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Rechercher à Dakar, Saly, Diamniadio..."
+                                className={styles.searchInput}
+                            />
+                        </div>
                         <Link href="/search">
-                            <button className="btn btn-primary searchButton">
-                                <Search size={24} />
+                            <button className={styles.searchButton}>
+                                Chercher
                             </button>
                         </Link>
                     </div>
-                </div>
-            </section>
 
-            <section className={styles.features}>
-                <div className={styles.featuresGrid}>
-                    <div className={styles.featureCard}>
-                        <Home size={48} color="#006AFF" />
-                        <h3 className={styles.featureTitle}>Acheter</h3>
-                        <p className={styles.featureText}>
-                            Trouvez votre maison idéale avec une expérience photo immersive et le plus grand nombre de listings au Sénégal.
-                        </p>
-                        <Link href="/search">
-                            <button className="btn btn-outline">Voir les maisons</button>
-                        </Link>
-                    </div>
-
-                    <div className={styles.featureCard}>
-                        <Key size={48} color="#006AFF" />
-                        <h3 className={styles.featureTitle}>Louer</h3>
-                        <p className={styles.featureText}>
-                            Nous créons une expérience en ligne fluide - de la recherche sur le plus grand réseau de location au paiement du loyer.
-                        </p>
-                        <Link href="/rent">
-                            <button className="btn btn-outline">Trouver une location</button>
-                        </Link>
-                    </div>
-
-                    <div className={styles.featureCard}>
-                        <DollarSign size={48} color="#006AFF" />
-                        <h3 className={styles.featureTitle}>Vendre</h3>
-                        <p className={styles.featureText}>
-                            Peu importe le chemin que vous choisissez pour vendre votre maison, nous pouvons vous aider à réussir votre vente.
-                        </p>
-                        <Link href="/sell">
-                            <button className="btn btn-outline">Voir les options</button>
-                        </Link>
+                    <div className={styles.quickFilters}>
+                        <div className={styles.filterPill}># Villas Saly</div>
+                        <div className={styles.filterPill}># Appartements Dakar</div>
+                        <div className={styles.filterPill}># Projets Neufs</div>
+                        <div className={styles.filterPill}># Bureaux Centre-Ville</div>
                     </div>
                 </div>
             </section>
-        </div>
+
+            {/* B2B / B2C ECOSYSTEM PATHS */}
+            <section className={`${styles.section} ${styles.sectionLight}`}>
+                <div className={styles.sectionHeader}>
+                    <h2 className={styles.sectionTitle}>Votre portail immobilier</h2>
+                    <p className={styles.sectionSubtitle}>
+                        Que vous cherchiez la maison de vos rêves ou que vous soyez un professionnel, nous avons l'outil parfait pour vous.
+                    </p>
+                </div>
+
+                <div className={styles.ecosystemGrid}>
+                    <div className={styles.pathCard}>
+                        <div className={`${styles.pathIconBox} ${styles.bgBlue}`}>
+                            <User size={32} />
+                        </div>
+                        <h3 className={styles.pathTitle}>Acheteurs & Locataires</h3>
+                        <p className={styles.pathDesc}>
+                            Explorez le plus grand réseau immobilier du Sénégal. Visites immersives, paiements sécurisés et accompagnement juridique bout en bout.
+                        </p>
+                        <Link href="/search" className={styles.pathBtn}>
+                            Trouver un bien <ArrowRight size={18} />
+                        </Link>
+                    </div>
+
+                    <div className={styles.pathCard}>
+                        <div className={`${styles.pathIconBox} ${styles.bgPurple}`}>
+                            <Building2 size={32} />
+                        </div>
+                        <h3 className={styles.pathTitle}>Promoteurs & Communes</h3>
+                        <p className={styles.pathDesc}>
+                            Virtualisez vos projets. Coffre-fort numérique, signatures probatoires et workflows fluides entre secteur privé et administration.
+                        </p>
+                        <Link href="/admin" className={styles.pathBtn}>
+                            Accéder au Portail Pro <Briefcase size={18} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* AI LEX LEGAL TEASER */}
+            <section className={styles.section}>
+                <div className={styles.aiSection}>
+                    <div className={styles.aiContent}>
+                        <span className={styles.aiTag}>Nouveau: Diwaan AI</span>
+                        <h2 className={styles.aiTitle}>Votre Juriste Personnel 24/7</h2>
+                        <p className={styles.aiDesc}>
+                            Notre IA experte "LexAI" analyse vos contrats, vérifie la conformité OHADA et vous guide dans chaque transaction immobilière en toute sérénité.
+                        </p>
+                        <Link href="/legal-assistant">
+                            <button className={styles.aiBtn}>
+                                <Bot size={20} />
+                                Discuter avec LexAI
+                            </button>
+                        </Link>
+                    </div>
+                    <div className={styles.aiVisual}>
+                        <div className={styles.chatBubble}>
+                            Bonjour, je souhaite acheter un terrain à Diamniadio. Quelles sont les démarches ?
+                        </div>
+                        <div className={styles.chatBubbleReply}>
+                            Pour un terrain à Diamniadio, il est crucial de vérifier d'abord le Titre Foncier (TF) ou le Bail à la conservation foncière. Je peux générer un mandat de vérification pour vous.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     );
 }
