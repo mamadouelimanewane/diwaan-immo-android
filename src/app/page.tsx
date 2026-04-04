@@ -7,14 +7,15 @@ export default function HomePage() {
         <main className={styles.main}>
             {/* HERO SECTION */}
             <section className={styles.hero}>
-                <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className={styles.heroVideo}
+                    poster="/images/hero-poster.jpg"
                 >
-                    <source src="https://videos.pexels.com/video-files/7648169/7648169-hd_1920_1080_30fps.mp4" type="video/mp4" />
+                    <source src="/videos/hero.mp4" type="video/mp4" />
                 </video>
                 <div className={styles.heroOverlay} />
                 <div className={styles.heroContent}>
